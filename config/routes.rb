@@ -2,50 +2,40 @@ Rails.application.routes.draw do
   # new index show edit create update destroy
   devise_for :admins
   devise_for :users
-  namespace :user do
+
+  scope module: :user do
+    # users
     resources :users, except:[:new,:index,:create]
     get 'users/exit' => 'users#exit'
-  end
-  namespace :user do
+    # addresses
     resources :addresses, only:[:create,:update,:destroy]
-  end
-  namespace :user do
+    # cart_items
     resources :cart_items, only:[:index,:create,:update,:destroy]
-  end
-  namespace :user do
+    # orders
     resources :orders, only:[:index,:new,:create]
     get 'orders/thanks'
-  end
-  namespace :user do
+    # items
     resources :items, only:[:index,:show]
-  end
-  namespace :user do
+    # searches
     get 'searches/items' => 'searches#items'
     get 'searches/artists' => 'searches#artists'
   end
-  
+
   namespace :admin do
+    # users
     resources :users, except:[:new,:create]
-  end
-  namespace :admin do
+    # addresses
     resources :addresses, only:[:destroy]
-  end
-  namespace :admin do
+    # artists
     resources :artists, only:[:index,:create,:update,:destroy]
-  end
-  namespace :admin do
+    # lebels
     resources :lebels, only:[:index,:create,:update,:destroy]
-  end
-  namespace :admin do
+    # genres
     resources :genres, only:[:index,:create,:update,:destroy]
-  end
-  namespace :admin do
+    # orders
     resources :orders, only:[:index,:update]
-  end
-  namespace :admin do
+    # items
     resources :items
-  end
-  namespace :admin do
     get 'searches/items' => 'searches#items'
     get 'searches/artists' => 'searches#artists'
     get 'searches/users' => 'searches#users'
