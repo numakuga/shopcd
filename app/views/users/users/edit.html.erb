@@ -1,2 +1,13 @@
-<h1>User::Users#edit</h1>
-<p>Find me in app/views/user/users/edit.html.erb</p>
+<h3>アカウント情報の編集</h3>
+
+<%= form_with model: @user, local: true do |f| %>
+  <%= render "devise/shared/error_messages", resource: @user %>
+  <%= render partial: 'users/shared/user_info_form', locals: {f: f} %>
+  <div class="actions">
+    <%= f.submit "保存する" %>
+  </div>
+<% end %>
+
+<h3>登録済住所一覧</h3>
+
+<%= link_to "＜　マイページへ戻る", user_path(current_user) %>
