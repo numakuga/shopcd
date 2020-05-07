@@ -5,10 +5,17 @@ class ApplicationController < ActionController::Base
     if resource_or_scope.is_a?(User) #パラメーターの先頭
       root_path
     else
+      # admin
     end
   end
 
+  # resource_or_scopeには:userか:adminが入っている
   def after_sign_out_path_for(resource_or_scope) #ログアウト後
+    if resource_or_scope == :user
+      root_path
+    else
+      # admin
+    end
   end
 
   protected
