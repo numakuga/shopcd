@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   # new index show edit create update destroy
   devise_for :admins
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: "users/registrations",
+    sessions:      "users/sessions",
+  }
 
   scope module: :user do
     # users

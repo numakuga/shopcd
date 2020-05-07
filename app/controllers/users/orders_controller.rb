@@ -1,4 +1,4 @@
-class User::OrdersController < ApplicationController
+class Users::OrdersController < ApplicationController
   def index
   end
 
@@ -6,7 +6,7 @@ class User::OrdersController < ApplicationController
   end
 
   def create
-    
+
   end
 
   def thanks
