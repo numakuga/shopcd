@@ -1,2 +1,24 @@
-<h1>User::Users#show</h1>
-<p>Find me in app/views/user/users/show.html.erb</p>
+<h2>会員メニュー</h2>
+<p>（<%= current_user.first_name + current_user.last_name %>さん）</p>
+
+<%= link_to edit_user_path(current_user) do %>
+  <h4>会員情報の確認・編集</h4>
+<% end %>
+
+<%= link_to "#" do %>
+  <h4>お気に入り</h4>
+<% end %>
+
+<%= link_to orders_path do %>
+  <h4>購入履歴一覧</h4>
+<% end %>
+
+<%= link_to "#" do %>
+  <h4>お問い合わせ</h4>
+<% end %>
+
+<%= link_to exit_path(current_user) do %>
+  <h4>退会</h4>
+<% end %>
+
+<%= link_to "＜　商品一覧へ", root_path %>

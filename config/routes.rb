@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   scope module: :users do
     # users
     resources :users, except:[:new,:index,:create]
-    get 'users/exit' => 'users#exit'
+    get 'users/:id/exit' => 'users#exit', as: :exit
     # addresses
     resources :addresses, only:[:create,:update,:destroy]
     # cart_items
