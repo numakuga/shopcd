@@ -1,12 +1,9 @@
 Rails.application.routes.draw do
   # new index show edit create update destroy
   devise_for :admins
-  devise_for :users, controllers: {
-    registrations: "users/registrations",
-    sessions:      "users/sessions",
-  }
+  devise_for :users
 
-  scope module: :user do
+  scope module: :users do
     # users
     resources :users, except:[:new,:index,:create]
     get 'users/exit' => 'users#exit'
@@ -18,7 +15,8 @@ Rails.application.routes.draw do
     resources :orders, only:[:index,:new,:create]
     get 'orders/thanks'
     # items
-    resources :items, only:[:index,:show]
+    resources :items, only:[:show]
+    root 'items#index'
     # searches
     get 'searches/items' => 'searches#items'
     get 'searches/artists' => 'searches#artists'
