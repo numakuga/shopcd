@@ -1,5 +1,10 @@
 <h2>会員メニュー</h2>
-<p>（<%= current_user.first_name + current_user.last_name %>さん）</p>
+
+<p><%= current_user.first_kana + current_user.last_kana %>さん</p>
+<p>郵便番号：<%= current_user.postal_code %></p>
+<p>住所：<%= current_user.address %></p>
+<p>電話番号：<%= current_user.phone %></p>
+<p>メールアドレス：<%= current_user.email %></p>
 
 <%= link_to edit_user_path(current_user) do %>
   <h4>会員情報の編集</h4>
