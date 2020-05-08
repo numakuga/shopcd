@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Shopcd</title>
+    <title><%= page_title %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,25 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <!-- 管理者 -->
+      <% if request.fullpath.include? "admin" %>
+        <!-- admin側のヘッダー -->
+      <% else %>
+      <!-- ユーザー -->
+        <% if user_signed_in? %>
+          <%= render 'users/shared/login_header' %><!-- ユーザーサインイン時 -->
+        <% else %>
+          <%= render 'users/shared/logout_header' %><!-- ユーザーサインアウト時 -->
+        <% end %>
+      <% end %>
+    </header>
+
+    <main>
+      <div class="container">
+          <%= yield %>
+      </div>
+    </main>
+
   </body>
 </html>
