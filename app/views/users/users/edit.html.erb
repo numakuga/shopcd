@@ -1,13 +1,13 @@
-<h3>アカウント情報の編集</h3>
+<h2 class="font-weight-bold border-bottom pb-2 mb-5">アカウント情報の編集</h2>
 
 <%= form_with model: @user, local: true do |f| %>
   <%= render "devise/shared/error_messages", resource: @user %>
   <%= render partial: 'users/shared/user_info_form', locals: {f: f} %>
   <div class="actions">
-    <%= f.submit "保存する" %>
+    <%= f.submit "保存する", class: "btn btn-outline-info btn-lg col-md-5" %>
   </div>
 <% end %>
 
-<h3>登録済住所一覧</h3>
+<h2 class="font-weight-bold border-bottom pb-2 mb-5 mt-5">登録済住所一覧</h2>
 
-<%= link_to "＜　マイページへ戻る", user_path(current_user) %>
+<%= link_to "＜　マイページへ戻る", user_path(current_user), class: "btn btn-outline-info mb-5" %>

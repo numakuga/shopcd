@@ -15,3 +15,14 @@
  */
 
  @import "bootstrap";
+
+// フッター固定
+ #wrapper {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+ }
+ footer {
+   margin-top: auto;
+}
+// フッター固定
