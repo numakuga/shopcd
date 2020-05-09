@@ -6,6 +6,7 @@ class Users::UsersController < ApplicationController
   end
 
   def edit
+    @address = Address.new
   end
 
   def exit
@@ -16,6 +17,7 @@ class Users::UsersController < ApplicationController
       flash[:notice] = "プロフィールを編集しました。"
       redirect_to user_path(current_user)
     else
+      @address = Address.new
       render 'edit'
     end
   end

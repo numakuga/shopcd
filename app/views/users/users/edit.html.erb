@@ -4,12 +4,22 @@
 
 <%= form_with model: @user, local: true do |f| %>
   <%= render "devise/shared/error_messages", resource: @user %>
-  <%= render partial: 'users/shared/user_info_form', locals: {f: f} %>
+  <!-- sharedフォルダはいくつか存在するのでどこのsharedかパスを書くこと -->
+  <%= render partial: "users/shared/user_info_form", locals: {f: f} %>
   <div class="actions">
     <%= f.submit "保存する", class: "btn btn-outline-info btn-lg col-md-5" %>
   </div>
 <% end %>
 
-<h2 class="font-weight-bold border-bottom pb-2 mb-5 mt-5">登録済住所一覧</h2>
+<h2 class="font-weight-bold border-bottom pb-2 mb-5 mt-5">配送先</h2>
 
-<%= link_to "＜　マイページへ戻る", user_path(current_user), class: "btn btn-outline-info mb-5" %>
+<div class="card">
+  <div class="card-body">
+    <h4 class="font-weight-bold border-bottom pb-2 mb-4">新規配送先登録</h4>
+    <%= render "users/shared/address_form", address: @address %>
+  </div>
+</div>
+
+<h4 class="font-weight-bold border-bottom pb-2 mt-5">登録済配送先一覧</h4>
+
+<%= link_to "＜　マイページへ戻る", user_path(current_user), class: "btn btn-outline-info mt-5 mb-5" %>
