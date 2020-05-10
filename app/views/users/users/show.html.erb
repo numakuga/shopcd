@@ -1,0 +1,79 @@
+<h2 class="font-weight-bold border-bottom pb-2 mb-5"><%= @page_title = "会員メニュー" %></h2>
+
+<div class="row card mb-5">
+  <div class="card-header">
+    <%= current_user.first_name + current_user.last_name %>（<%= current_user.first_kana + current_user.last_kana %>）様
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <span class="font-weight-bold col-md-2">郵便番号：</span><%= current_user.postal_code %>
+    </li>
+    <li class="list-group-item">
+      <span class="font-weight-bold col-md-2">住所：</span><%= current_user.address %>
+    </li>
+    <li class="list-group-item">
+      <span class="font-weight-bold col-md-2">電話番号：</span><%= current_user.phone %>
+    </li>
+    <li class="list-group-item">
+      <span class="font-weight-bold col-md-2">メールアドレス：</span><%= current_user.email %>
+    </li>
+  </ul>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title">
+          <%= link_to "会員情報の編集", edit_user_path(current_user) %>
+        </h5>
+        <p class="card-text">
+          氏名、メールアドレス、住所、電話番号、配送先の変更ができます。
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title">
+          <%= link_to "お気に入り", "#" %>
+        </h5>
+        <p class="card-text">
+          いいねした商品の確認と削除ができます。
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-5">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title">
+          <%= link_to "購入履歴一覧", orders_path %>
+        </h5>
+        <p class="card-text">
+          今まで購入いただいた商品を確認ができます。
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body text-center">
+        <h5 class="card-title">
+          <%= link_to "お問い合わせ", "#" %>
+        </h5>
+        <p class="card-text">
+          販売者に問合せができます。
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= link_to "＜　商品一覧へ", root_path, class: "btn btn-outline-info mb-5" %>
+
+<%= link_to "退会", exit_path(current_user), class:"btn btn-outline-secondary btn-lg btn-block" %>

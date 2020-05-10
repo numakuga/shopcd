@@ -13,3 +13,23 @@
  *= require_tree .
  *= require_self
  */
+
+ @import "bootstrap";
+
+// フッター固定
+ #wrapper {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+ }
+ footer {
+   margin-top: auto;
+}
+// フッター固定
+
+.field_with_errors {
+  display: contents;
+  input {
+    @extend .is-invalid;
+  }
+}
