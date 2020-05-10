@@ -2,8 +2,8 @@
 
 <div class="card-deck">
   <% @items.each do |item| %>
-      <div class="card">
-        <%= image_tag "header_logo", size: "259x200" %>
+      <div class="card item-card">
+        <%= image_tag "logo", size: "259x200" %>
         <div class="card-body">
           <h5 class="card-title border-bottom"><%= item.title %></h5>
           <p class="card-text">
