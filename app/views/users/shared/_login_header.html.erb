@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+<nav class="navbar navbar-expand-lg navbar-light mb-4" style="background-color: #D7EEFF">
   <div class="brand-logo">
     <%= link_to root_path do %>
       <%= image_tag "header_logo", size: '300x100', class:"navbar-brand", alt: 'brand-logo', style: "object-fit: contain;" %>
@@ -7,19 +7,19 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item nav-link text-black-50">
-        <%= current_user.first_name + current_user.last_name %>さん
+        ようこそ  <%= current_user.first_name + current_user.last_name %>さん
       </li>
       <li class="nav-item nav-link">
-        <%= link_to "マイページ", user_path(current_user) %>
+        <%= link_to "マイページ", user_path(current_user), class: "font-weight-bold text-info" %>
       </li>
       <li class="nav-item nav-link">
-        <%= link_to "お気に入り", "#" %>
+        <%= link_to "お気に入り", "#", class: "font-weight-bold text-info" %>
       </li>
       <li class="nav-item nav-link">
-        <%= link_to "カート", "#" %>
+        <%= link_to "カート", "#", class: "font-weight-bold text-info" %>
       </li>
       <li class="nav-item nav-link">
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "font-weight-bold text-info" %>
       </li>
     </ul>
   </div>
