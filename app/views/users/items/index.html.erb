@@ -1,3 +1,21 @@
 <% @page_title = "商品一覧" %>
-<h1>User::Items#index</h1>
-<p>Find me in app/views/user/items/index.html.erb</p>
+
+<div class="card-deck">
+  <% @items.each do |item| %>
+      <div class="card">
+        <%= image_tag "header_logo", size: "259x200" %>
+        <div class="card-body">
+          <h5 class="card-title border-bottom"><%= item.title %></h5>
+          <p class="card-text">
+             歌手名
+          </p>
+          <p class="card-text">
+            <%= item.price.to_s(:delimited) %>円
+          </p>
+          <p class="card-text">
+            <small class="text-muted">残り<%= item.stock %>個</small>
+          </p>
+        </div>
+      </div>
+  <% end %>
+</div>
