@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     # artists
     resources :artists, only:[:index,:create,:update,:destroy]
     # lebels
-    resources :lebels, only:[:index,:create,:update,:destroy]
+    resources :labels, only:[:index,:create,:update,:destroy]
     # genres
     resources :genres, only:[:index,:create,:update,:destroy]
     # orders
