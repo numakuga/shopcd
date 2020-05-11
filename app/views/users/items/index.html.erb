@@ -9,7 +9,8 @@
         <div class="card-body">
           <h5 class="card-title border-bottom"><%= item.title %></h5>
           <p class="card-text">
-             歌手名
+            <!-- リレーションしていないと表示できないやーつ -->
+            <%= item.artist.name %>
           </p>
           <p class="card-text">
             <%= item.price.to_s(:delimited) %>円
