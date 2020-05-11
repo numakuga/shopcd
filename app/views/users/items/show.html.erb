@@ -1,2 +1,35 @@
-<h1>User::Items#show</h1>
-<p>Find me in app/views/user/items/show.html.erb</p>
+<h2 class="font-weight-bold border-bottom pb-2 mb-5"><%= @page_title = "商品詳細" %></h2>
+
+<div class="row">
+
+  <div class="col-md-4"> <!-- list-group -->
+    <div class="card">
+      <%= image_tag "logo", size: "350x350" %>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="card border-white mb-3">
+      <div class="card-header">
+        <h3><%= @item.title %></h3>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">
+          <%= @item.artist.name %>
+        </h5>
+        <p class="card-text"><%= @item.label.name %></p>
+        <p class="card-text">ジャンル：<%= @item.genre.name %></p>
+        <p class="card-text">発売日：<%= @item.release %></p>
+        <h4 class="card-text"><%= @item.price.to_s(:delimited) %>円</h4>
+        <p class="card-text">
+          <%= form_with model:[current_user, @cart_item], local: true do |f| %>
+            <%= f.select :piece, [1,2,3,4,5,6,7,8,9,10] %>
+            <%= f.hidden_field :item_id, :value => @item.id %>
+            <%= f.submit "カートに入れる ＞", class:"ml-auto btn btn-info btn-lg" %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
