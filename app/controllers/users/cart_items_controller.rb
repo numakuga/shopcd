@@ -5,7 +5,7 @@ class Users::CartItemsController < ApplicationController
   def create
     # CartItem.new(cart_item_params.merge(user_id: current_user.id))でもok
     @cart_item = CartItem.new(cart_item_params)
-    if @cart_item
+    if @cart_item.save
       redirect_to user_cart_items_path(current_user)
     else
       flash[:notice] = "カート内に保存できませんでした。"

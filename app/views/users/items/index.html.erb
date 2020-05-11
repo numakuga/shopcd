@@ -16,7 +16,13 @@
             <%= item.price.to_s(:delimited) %>円
           </p>
           <p class="card-text">
-            <small class="text-muted">残り<%= item.stock %>個</small>
+            <small class="text-muted">
+              <% if item.stock != 0 %>
+                残り<%= item.stock %>個
+              <% else %>
+                売り切れ
+              <% end %>
+            </small>
           </p>
         </div>
       </div>
