@@ -1,2 +1,51 @@
-<h1>User::Items#show</h1>
-<p>Find me in app/views/user/items/show.html.erb</p>
+<h2 class="font-weight-bold border-bottom pb-2 mb-5"><%= @page_title = "商品詳細" %></h2>
+
+<div class="row">
+  <div class="col-md-4 position-sticky"> <!-- list-group -->
+    <div class="card sticky-top">
+      <%= image_tag "logo", size: "350x350" %>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="card border-white mb-3">
+      <div class="card-header">
+        <h3><%= @item.title %></h3>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">
+          <%= @item.artist.name %>
+        </h5>
+        <p class="card-text"><%= @item.label.name %></p>
+        <p class="card-text">ジャンル：<%= @item.genre.name %></p>
+        <p class="card-text">発売日：<%= @item.release %></p>
+        <h4 class="card-text"><%= @item.price.to_s(:delimited) %>円</h4>
+        <%= form_with model:[current_user, @cart_item], local: true, class:"d-flex" do |f| %>
+          <%= f.select :piece, @item.stock_array, { prompt: '選択してください' } %>
+          <%= f.hidden_field :item_id, :value => @item.id %>
+          <% if @item.stock_arry != ["売り切れ"] %>
+            <%= f.submit "カートに入れる ＞", class:"ml-auto btn btn-info btn-lg" %>
+          <% else %>
+            <!-- item売り切れの際はボタンを非活性に変更 -->
+            <%= f.submit "カートに入れる ＞", class:"ml-auto btn btn-info btn-lg", "disabled" => true %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <% @discs.each.with_index(1) do |disc, i| %>
+      <div class="card" style="border-top: solid 5px #D7EEFF">
+        <div class="card-body">
+          <h4 class="card-title mb-5">Disc<%= i %></h4>
+          <% @songs.each.with_index(1) do |song, i| %>
+            <p class="card-text border-bottom pb-2">
+              <span class="mr-4"><%= i %>.</span>
+              <%= song.title %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to "＜　商品一覧へ", root_path, class: "btn btn-outline-info col-md-4 mt-5" %>

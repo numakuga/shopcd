@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  
-  # resource_or_scopeにはフォームで入力された値がパラメーターで送られてくる
+
+  # resource_or_scopeはログインユーザー情報の値がパラメーターで送られてくる
   def after_sign_in_path_for(resource_or_scope) #ログイン後
     if resource_or_scope.is_a?(User) #パラメーターの先頭
       root_path

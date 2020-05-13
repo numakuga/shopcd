@@ -1,3 +1,31 @@
 <% @page_title = "商品一覧" %>
-<h1>User::Items#index</h1>
-<p>Find me in app/views/user/items/index.html.erb</p>
+
+<div class="card-deck">
+  <% @items.each do |item| %>
+    <%= link_to item_path(item), style:"text-decoration: none" do %>
+    <!-- styleはリンクの下線を消すため -->
+      <div class="card item-card">
+        <%= image_tag "logo", size: "253x200" %>
+        <div class="card-body">
+          <h5 class="card-title border-bottom"><%= item.title %></h5>
+          <p class="card-text">
+            <!-- リレーションしていないと表示できないやーつ -->
+            <%= item.artist.name %>
+          </p>
+          <p class="card-text">
+            <%= item.price.to_s(:delimited) %>円
+          </p>
+          <p class="card-text">
+            <small class="text-muted">
+              <% if item.stock != 0 %>
+                残り<%= item.stock %>個
+              <% else %>
+                売り切れ
+              <% end %>
+            </small>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
