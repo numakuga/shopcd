@@ -21,7 +21,7 @@
         <p class="card-text">発売日：<%= @item.release %></p>
         <h4 class="card-text"><%= @item.price.to_s(:delimited) %>円</h4>
         <%= form_with model:[current_user, @cart_item], local: true, class:"d-flex" do |f| %>
-          <%= f.select :piece, @item.stock_arry, { prompt: '選択してください' } %>
+          <%= f.select :piece, @item.stock_array, { prompt: '選択してください' } %>
           <%= f.hidden_field :item_id, :value => @item.id %>
           <% if @item.stock_arry != ["売り切れ"] %>
             <%= f.submit "カートに入れる ＞", class:"ml-auto btn btn-info btn-lg" %>
