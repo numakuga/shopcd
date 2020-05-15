@@ -1,5 +1,15 @@
 <% @page_title = "商品一覧" %>
 
+<%= search_form_for @q, url: searches_items_path do |f| %>
+  <%= f.select :model %>
+  <%= f.search_field :title_cont %>
+  <%= submit_tag "検索", class: "btn-success" %>
+<% end %>
+
+<% if request.path != '/' %>
+  <div>検索結果：<%= @items.count %>件</div>
+<% end %>
+
 <div class="card-deck">
   <% @items.each do |item| %>
     <%= link_to item_path(item), style:"text-decoration: none" do %>

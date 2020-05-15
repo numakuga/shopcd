@@ -1,6 +1,7 @@
 class Users::ItemsController < ApplicationController
   def index
     @items = Item.where(status: true)
+    @q = Item.ransack(params[:q])
   end
 
   def show
