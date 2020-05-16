@@ -25,11 +25,17 @@
  footer {
    margin-top: auto;
 }
-// フッター固定
-
+// エラー時
 .field_with_errors {
   display: contents;
   input {
     @extend .is-invalid;
   }
+}
+// ヘッダー カラー
+.bg-grey {
+  background-color: #DDDDDD;
+}
+.bg-blue {
+  background-color: #D7EEFF;
 }
