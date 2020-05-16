@@ -16,7 +16,7 @@
         <%= link_to "お気に入り", "#", class: "font-weight-bold text-info" %>
       </li>
       <li class="nav-item nav-link">
-        <%= link_to "カート", "#", class: "font-weight-bold text-info" %>
+        <%= link_to "カート", user_cart_items_path(current_user), class: "font-weight-bold text-info" %>
       </li>
       <li class="nav-item nav-link">
         <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "font-weight-bold text-info" %>
