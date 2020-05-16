@@ -1,2 +1,23 @@
-<h1>User::CartItems#index</h1>
-<p>Find me in app/views/user/cart_items/index.html.erb</p>
+<h2 class="font-weight-bold border-bottom pb-2 mb-5">
+  <%= @page_title = "カート" %>
+</h2>
+
+<p>現在カートには、こちらの商品が入っております。</p>
+
+<div class="card border-white">
+  <h5 class="card-header">商品 単価 数量 在庫数 金額</h5>
+
+  <% @cart_items.each do |cart_item| %>
+    <div class="card mt-4">
+      <div class="card-body">
+        <h5 class="card-title"><%= cart_item.item.title %></h5>
+        <p class="card-text"><%= cart_item.piece %></p>
+        <p class="card-text"><%= cart_item.item.artist.name %></p>
+        <p class="card-text"><%= cart_item.item.price %></p>
+        <p class="card-text"><%= cart_item.item.stock %></p>
+      </div>
+    </div>
+  <% end %>
+
+
+</div>

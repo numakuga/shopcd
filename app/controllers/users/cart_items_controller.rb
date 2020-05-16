@@ -1,5 +1,6 @@
 class Users::CartItemsController < ApplicationController
   def index
+    @cart_items = CartItem.where(user_id: current_user.id).group(:item_id)
   end
 
   def create
