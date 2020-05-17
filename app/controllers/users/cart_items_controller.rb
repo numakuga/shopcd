@@ -25,6 +25,7 @@ class Users::CartItemsController < ApplicationController
       flash[:notice] = "#{cart_item.item.title}を削除しました。"
       redirect_to user_cart_items_path(current_user)
     else
+      @cart_items = CartItem.where(user_id: current_user.id).group(:item_id)
       render "index"
     end
   end
