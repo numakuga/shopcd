@@ -15,6 +15,7 @@
         <p class="card-text"><%= cart_item.item.artist.name %></p>
         <p class="card-text"><%= cart_item.item.price %></p>
         <p class="card-text"><%= cart_item.item.stock %></p>
+        <%= link_to "削除", user_cart_item_path(current_user, cart_item), method: :delete %>
       </div>
     </div>
   <% end %>

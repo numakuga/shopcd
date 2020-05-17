@@ -20,7 +20,13 @@ class Users::CartItemsController < ApplicationController
   end
 
   def destroy
-
+    cart_item = CartItem.find(params[:id])
+    if cart_item.destroy
+      flash[:notice] = "#{cart_item.item.title}を削除しました。"
+      redirect_to user_cart_items_path(current_user)
+    else
+      render "index"
+    end
   end
 
   private
