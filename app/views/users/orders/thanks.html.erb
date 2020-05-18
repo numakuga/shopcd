@@ -1,2 +1,9 @@
-<h1>User::Orders#thanks</h1>
-<p>Find me in app/views/user/orders/thanks.html.erb</p>
+
+<h1 class="mt-5 text-center">お客様の注文が確定されました。</h1>
+<h5 class="mt-5 text-center">お買い上げいただき、誠にありがとうございます。</h5>
+<h5 class="mt-4 text-center">ご注文内容は購入履歴からご覧いただけます。</h5>
+
+<div class="row d-flex justify-content-between mt-5">
+  <%= link_to "＜　購入履歴一覧へ", root_path, class: "btn btn-outline-info col-md-4" %>
+  <%= link_to "商品一覧へ　＞", root_path, class: "btn btn-outline-info col-md-4" %>
+</div>
