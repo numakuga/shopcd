@@ -2,14 +2,18 @@
 
 <h2 class="font-weight-bold border-bottom pb-2 mb-5">アカウント情報の編集</h2>
 
-<%= form_with model: @user, local: true do |f| %>
-  <%= render "devise/shared/error_messages", resource: @user %>
-  <!-- sharedフォルダはいくつか存在するのでどこのsharedかパスを書くこと -->
-  <%= render partial: "users/shared/user_info_form", locals: {f: f} %>
-  <div class="actions">
-    <%= f.submit "保存する", class: "btn btn-outline-info btn-lg col-md-5" %>
+<div class="card">
+  <div class="card-body">
+    <%= form_with model: @user, local: true do |f| %>
+      <%= render "devise/shared/error_messages", resource: @user %>
+      <!-- sharedフォルダはいくつか存在するのでどこのsharedかパスを書くこと -->
+      <%= render partial: "users/shared/user_info_form", locals: {f: f} %>
+      <div class="actions">
+        <%= f.submit "保存する", class: "btn btn-info btn-lg col-md-12" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
 
 <h2 class="font-weight-bold border-bottom pb-2 mb-5 mt-5">配送先</h2>
 
@@ -22,4 +26,4 @@
 
 <h4 class="font-weight-bold border-bottom pb-2 mt-5">登録済配送先一覧</h4>
 
-<%= link_to "＜　マイページへ戻る", user_path(current_user), class: "btn btn-outline-info mt-5 mb-5" %>
+<%= link_to "＜　マイページへ戻る", user_path(current_user), class: "btn btn-outline-info col-md-4 mt-5 mb-5" %>
