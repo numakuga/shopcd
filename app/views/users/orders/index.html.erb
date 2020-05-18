@@ -1,2 +1,35 @@
-<h1>User::Orders#index</h1>
-<p>Find me in app/views/user/orders/index.html.erb</p>
+<% @page_title = "確認画面" %>
+
+<h2 class="font-weight-bold border-bottom pb-2 mb-3">購入者情報</h2>
+<%= render "users/shared/user_info" %>
+
+<h2 class="font-weight-bold border-bottom pb-2 mb-3">支払い方法選択</h2>
+<div class="card card-body mb-5">
+  <h5 class="mb-5">◯　クジレットカードでのお支払い</h5>
+  <h5 class="mb-3">◯　銀行でのお支払い</h5>
+  <p class="mb-5">代金のお支払い後に商品が発送されます。なお、お支払いの際に必要となるお支払い番号は、出荷準備に入り次第発行されます。</p>
+  <h5 class="mb-3">◯　代引きでのお支払い</h5>
+  <p>代引き手数料がかかります。</p>
+</div>
+
+<h2 class="font-weight-bold border-bottom pb-2 mb-3">配送先住所変更</h2>
+<div class="card card-body mb-5">
+  <h5 class="mb-5">◯　登録済みの住所とは別の住所を使う場合</h5>
+  <%= render "users/shared/address_form", address: @address %>
+  <p class="mt-5">※以前登録した住所を使う場合</p>
+  住所を表示
+</div>
+
+<h2 class="font-weight-bold border-bottom pb-2 mb-3">合計金額</h2>
+<div class="card card-body mb-5">
+</div>
+
+
+<div class="row">
+  <%= link_to "購入する", "#", class: "btn btn-lg btn-info col-md-12"%>
+</div>
+
+<div class="row d-flex justify-content-between mt-5">
+  <%= link_to "＜　カートへ戻る", root_path, class: "btn btn-outline-info col-md-4" %>
+  <%= link_to "＜　商品一覧へ", root_path, class: "btn btn-outline-info col-md-4" %>
+</div>

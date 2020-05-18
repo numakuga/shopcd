@@ -13,7 +13,10 @@
     <%= f.label "住所", class:"col-md-2" %>
     <%= f.text_field :address, class: "form-control col-md-4" %>
   </div>
-  <div class="actions">
-    <%= f.submit "追加する", class: "btn btn-outline-success btn-md btn-block" %>
-  </div>
+  <!-- 購入者情報入力画面での新規住所登録の際はこのsubmitは使わない -->
+  <% if request.path != "/users/#{params[:user_id]}/orders" %>
+    <div class="actions">
+      <%= f.submit "追加する", class: "btn btn-success btn-lg btn-block" %>
+    </div>
+  <% end %>
 <% end %>
