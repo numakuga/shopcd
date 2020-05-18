@@ -1,5 +1,6 @@
 class Users::OrdersController < ApplicationController
   def index
+    @address = Address.new
   end
 
   def new
