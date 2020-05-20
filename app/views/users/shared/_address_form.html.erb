@@ -1,5 +1,5 @@
 <%= form_with model: address, local: true do |f| %>
-  <%= render "devise/shared/error_messages", resource: address %>
+  <%# <%= render "devise/shared/error_messages", resource: address %>
 
   <div class="form-group row">
     <%= f.label "宛名", class:"col-md-2" %>
@@ -18,5 +18,8 @@
     <div class="actions">
       <%= f.submit "追加する", class: "btn btn-success btn-lg btn-block" %>
     </div>
+  <% else %> <!-- 購入者情報入力画面のみ表示 -->
+    <p class="mt-5">※以前登録した住所を使う場合</p>
+    <%= f.select :address_id, @addresses.map {|address| address.postal_code + " " + address.address + " " +  address.name } %>
   <% end %>
 <% end %>
