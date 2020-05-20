@@ -15,9 +15,7 @@
 <h2 class="font-weight-bold border-bottom pb-2 mb-3">配送先住所変更</h2>
 <div class="card card-body mb-5">
   <h5 class="mb-5">◯　登録済みの住所とは別の住所を使う場合</h5>
-  <%= render "users/shared/address_form", address: @address %>
-  <p class="mt-5">※以前登録した住所を使う場合</p>
-  住所を表示
+  <%= render "users/shared/address_form", address: [current_user, @order] %>
 </div>
 
 <h2 class="font-weight-bold border-bottom pb-2 mb-3">合計金額</h2>
@@ -26,10 +24,10 @@
 
 
 <div class="row">
-  <%= link_to "購入する", "#", class: "btn btn-lg btn-info col-md-12"%>
+  <%= link_to "購入する", user_orders_thanks_path(current_user), class: "btn btn-lg btn-info col-md-12"%>
 </div>
 
 <div class="row d-flex justify-content-between mt-5">
   <%= link_to "＜　カートへ戻る", root_path, class: "btn btn-outline-info col-md-4" %>
-  <%= link_to "＜　商品一覧へ", root_path, class: "btn btn-outline-info col-md-4" %>
+  <%= link_to "商品一覧へ　＞", root_path, class: "btn btn-outline-info col-md-4" %>
 </div>
