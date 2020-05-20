@@ -1,6 +1,7 @@
 class Users::OrdersController < ApplicationController
   def index
-    @address = Address.new
+    @order = Order.new
+    @addresses = Address.where(user_id: current_user.id)
   end
 
   def new
