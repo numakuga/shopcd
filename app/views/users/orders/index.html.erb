@@ -4,13 +4,28 @@
 <%= render "users/shared/user_info" %>
 
 <h2 class="font-weight-bold border-bottom pb-2 mb-3">支払い方法選択</h2>
-<div class="card card-body mb-5">
-  <h5 class="mb-5">◯　クジレットカードでのお支払い</h5>
-  <h5 class="mb-3">◯　銀行でのお支払い</h5>
-  <p class="mb-5">代金のお支払い後に商品が発送されます。なお、お支払いの際に必要となるお支払い番号は、出荷準備に入り次第発行されます。</p>
-  <h5 class="mb-3">◯　代引きでのお支払い</h5>
-  <p>代引き手数料がかかります。</p>
-</div>
+<%= form_with model: [current_user, @order] do |f| %>
+  <div class="card card-body mb-5">
+    <!-- 支払い方法が各配列になっているからpayment[0]でok (例）["クレジット", "0"] -->
+    <% Order.payments.each_with_index do |payment, i| %>
+
+        <h5 class="mb-3 custom-control custom-radio">
+          <%= f.radio_button :payment, payment[0], class:"custom-control-input" %>
+          <%= f.label :"#{payment[0]}", class:"custom-control-label", for:"order_payment_#{payment[0]}" %>
+        </h5>
+        <% case i
+        when 0 %>
+          <p class="mb-5">カード番号入力</p>
+        <% when 1 %>
+          <p class="mb-5">代金のお支払い後に商品が発送されます。なお、お支払いの際に必要となるお支払い番号は、出荷準備に入り次第発行されます。</p>
+        <% when 2 %>
+          <p>代引き手数料がかかります。</p>
+        <% end %>
+
+    <% end %>
+
+  </div>
+<% end %>
 
 <h2 class="font-weight-bold border-bottom pb-2 mb-3">配送先住所変更</h2>
 <div class="card card-body mb-5">
