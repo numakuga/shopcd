@@ -4,34 +4,55 @@
 <%= render "users/shared/user_info" %>
 
 <h2 class="font-weight-bold border-bottom pb-2 mb-3">支払い方法選択</h2>
-<%= form_with model: [current_user, @order] do |f| %>
+<%= form_with model: [current_user, @order], local: true do |f| %>
   <div class="card card-body mb-5">
-    <!-- 支払い方法が各配列になっているからpayment[0]でok (例）["クレジット", "0"] -->
+    <!-- 支払い方法が各配列になっているからpayment[0]でok (例）[["hoge", "0"],[],[]] -->
     <% Order.payments.each_with_index do |payment, i| %>
-
-        <h5 class="mb-3 custom-control custom-radio">
-          <%= f.radio_button :payment, payment[0], class:"custom-control-input" %>
-          <%= f.label :"#{payment[0]}", class:"custom-control-label", for:"order_payment_#{payment[0]}" %>
-        </h5>
-        <% case i
-        when 0 %>
-          <p class="mb-5">カード番号入力</p>
-        <% when 1 %>
-          <p class="mb-5">代金のお支払い後に商品が発送されます。なお、お支払いの際に必要となるお支払い番号は、出荷準備に入り次第発行されます。</p>
-        <% when 2 %>
-          <p>代引き手数料がかかります。</p>
-        <% end %>
-
+      <h5 class="mb-3 custom-control custom-radio">
+        <%= f.radio_button :payment, payment[0], class:"custom-control-input" %>
+        <%= f.label :"#{payment[0]}", class:"custom-control-label", for:"order_payment_#{payment[0]}" %>
+      </h5>
+      <% case i
+      when 0 %>
+        <p class="mb-5">カード番号入力</p>
+      <% when 1 %>
+        <p class="mb-5">代金のお支払い後に商品が発送されます。なお、お支払いの際に必要となるお支払い番号は、出荷準備に入り次第発行されます。</p>
+      <% when 2 %>
+        <p>代引き手数料がかかります。</p>
+      <% end %>
     <% end %>
-
   </div>
 <% end %>
 
 <h2 class="font-weight-bold border-bottom pb-2 mb-3">配送先住所変更</h2>
-<div class="card card-body mb-5">
-  <h5 class="mb-5">◯　登録済みの住所とは別の住所を使う場合</h5>
-  <%= render "users/shared/address_form", address: [current_user, @order] %>
-</div>
+<%= form_with model: [current_user, @order], local: true do |f| %>
+<%# <%= render "devise/shared/error_messages", resource: address %>
+
+  <div class="card card-body mb-5">
+    <h5 class="mb-4 custom-radio">
+      <%= f.radio_button :address, class:"custom-control-input" %>
+      <%= f.label :登録済みの住所とは別の住所を使う場合, class:"custom-control-label" %>
+    </h5>
+    <div class="form-group row">
+      <%= f.label "宛名", class:"col-md-2" %>
+      <%= f.text_field :name, class: "form-control col-md-2" %>
+    </div>
+    <div class="form-group row">
+      <%= f.label "郵便番号", class:"col-md-2" %>
+      <%= f.text_field :postal_code, placeholder:"ハイフンなし", class: "form-control col-md-2" %>
+    </div>
+    <div class="form-group row">
+      <%= f.label "住所", class:"col-md-2" %>
+      <%= f.text_field :address, class: "form-control col-md-4" %>
+    </div>
+
+    <!-- 購入者情報入力画面のみ表示 -->
+    <h5 class="mt-5 mb-3">以前登録した住所を使う場合</h5>
+    <%= f.select :address_id, @addresses.map {|address| address.postal_code + " " + address.address + " " +  address.name }, {include_blank: '選択してください'}, class: "custom-select" %>
+
+  </div>
+<% end %>
+
 
 <h2 class="font-weight-bold border-bottom pb-2 mb-3">合計金額</h2>
 <div class="card card-body mb-5">
