@@ -5,6 +5,7 @@ class Users::AddressesController < ApplicationController
     @address = Address.new(address_params)
     @address.user_id = current_user.id
     if @address.save
+      flash[:notice] = "#{@address.name}様の配送先を登録しました。"
       redirect_back(fallback_location: edit_user_path(current_user))
     else
       render "users/users/edit"
@@ -16,7 +17,13 @@ class Users::AddressesController < ApplicationController
   end
 
   def destroy
-
+    @address = Address.find(params[:id])
+    if @address.destroy
+      flash[:notice] = "#{@address.name}様の配送先を削除しました。"
+      redirect_to edit_user_path(current_user)
+    else
+      render "users/users/edit"
+    end
   end
 
   private
