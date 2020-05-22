@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 2020_05_22_152000) do
     t.string "address", null: false
     t.string "postal_code", null: false
     t.string "phone", null: false
-    t.datetime "is_deleted", null: false
+    t.datetime "is_deleted"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
