@@ -48,6 +48,7 @@
           <th scope="col">郵便番号</th>
           <th scope="col">住所</th>
           <th scope="col"></th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -58,6 +59,7 @@
               <td><%= f.text_field :name, class: "form-control col-md-7" %></td>
               <td><%= f.text_field :postal_code, class: "form-control col-md-5" %></td>
               <td><%= f.text_field :address, class: "form-control col-md-12" %></td>
+              <td><%= f.submit "編集", class: "btn btn-success"%></td>
               <td><%= link_to "削除", address_path(address), method: :delete, class:"btn btn-secondary" %></td>
             </tr>
           <% end %>

@@ -1,10 +1,10 @@
 class Users::AddressesController < ApplicationController
 
   def create
-    @address = Address.new(address_params)
-    if @address.save
-      flash[:notice] = "#{@address.name}様の配送先を登録しました。"
-      redirect_back(fallback_location: edit_user_path(current_user))
+    address = Address.new(address_params)
+    if address.save
+      flash[:notice] = "#{address.name}様の配送先情報を登録しました。"
+      redirect_to edit_user_path(current_user)
     else
       @addresses = Address.where(user_id: current_user.id)
       render "users/users/edit"
@@ -12,13 +12,20 @@ class Users::AddressesController < ApplicationController
   end
 
   def update
-
+    address = Address.find(params[:id])
+    if address.update(address_params)
+      flash[:notice] = "#{address.name}様の配送先情報を編集しました。"
+      redirect_to edit_user_path(current_user)
+    else
+      @addresses = Address.where(user_id: current_user.id)
+      render "users/users/edit"
+    end
   end
 
   def destroy
-    @address = Address.find(params[:id])
-    if @address.destroy
-      flash[:notice] = "#{@address.name}様の配送先を削除しました。"
+    address = Address.find(params[:id])
+    if address.destroy
+      flash[:notice] = "#{address.name}様の配送先情報を削除しました。"
       redirect_to edit_user_path(current_user)
     else
       @addresses = Address.where(user_id: current_user.id)
