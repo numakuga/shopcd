@@ -7,6 +7,7 @@ class Users::UsersController < ApplicationController
 
   def edit
     @address = Address.new
+    @addresses = Address.where(user_id: current_user.id)
   end
 
   def exit
