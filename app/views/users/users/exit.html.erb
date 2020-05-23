@@ -19,8 +19,8 @@
     退会手続きを続ける場合には、以下より手続きを行ってください。
   </p>
   <span class="d-flex justify-content-center">
-    <%= link_to "キャンセル", "#", class: "btn btn-outline-secondary mr-4 col-md-2" %>
-    <%= link_to "退会", "#", class: "btn btn-outline-secondary col-md-2" %>
+    <%= link_to "キャンセル", user_path(current_user), class: "btn btn-outline-secondary mr-4 col-md-2" %>
+    <%= link_to "退会", user_path(current_user), method: :delete, data: {confirm: "本当に退会しますか？"}, class: "btn btn-outline-secondary col-md-2" %>
   </span>
 </div>
 

@@ -15,15 +15,22 @@ class Users::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:notice] = "プロフィールを編集しました。"
+      flash[:notice] = "会員情報を編集しました。"
       redirect_to user_path(current_user)
     else
       @address = Address.new
-      render 'edit'
+      render :edit
     end
   end
 
   def destroy
+    user = User.find(params[:id])
+    if user.destroy
+      flash[:notice] = "ANAGO SHOPEを退会しました。"
+      redirect_to root_path
+    else
+      render :show
+    end
   end
 
   private
