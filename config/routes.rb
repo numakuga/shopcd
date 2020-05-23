@@ -5,8 +5,10 @@ Rails.application.routes.draw do
   devise_for :users
 
   scope module: :users do
+
     root 'items#index'
     # users
+    get 'users/:id/exit' => 'users#exit', as: :user_exit
     resources :users, except:[:new,:index,:create] do
       # cart_items
       resources :cart_items, only:[:index,:create,:update,:destroy]
@@ -14,7 +16,7 @@ Rails.application.routes.draw do
       resources :orders, only:[:index,:new,:create]
       get 'orders/thanks'
     end
-    get 'users/:id/exit' => 'users#exit', as: :exit
+    
     # addresses
     resources :addresses, only:[:create,:update,:destroy]
     # items
