@@ -1,8 +1,8 @@
 <% @page_title = "商品一覧" %>
 
-<%= search_form_for @q, url: searches_items_path do |f| %>
-  <%= f.search_field :title_cont %>
-  <%= submit_tag "検索", class: "btn-success" %>
+<%= search_form_for @q, url: searches_items_path, class:"d-flex" do |f| %>
+  <%= f.search_field :title_cont, placeholder: "商品名、アーティスト名", class: "form-control" %>
+  <%= submit_tag "検索", class: "btn btn-success" %>
 <% end %>
 
 <% if request.path != '/' %>
@@ -13,10 +13,10 @@
   <% @items.each do |item| %>
     <%= link_to item_path(item), style:"text-decoration: none" do %>
     <!-- styleはリンクの下線を消すため -->
-      <div class="card item-card">
+      <div class="card item-card mt-5">
         <%= image_tag "logo", size: "253x200" %>
         <div class="card-body">
-          <h5 class="card-title border-bottom"><%= item.title %></h5>
+          <h4 class="card-title border-bottom"><%= item.title %></h4>
           <p class="card-text">
             <!-- リレーションしていないと表示できないやーつ -->
             <%= item.artist.name %>
