@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'favorites/create'
+  get 'favorites/destroy'
+  get 'favorites/index'
   # new index show edit create update destroy
 
   devise_for :admins
