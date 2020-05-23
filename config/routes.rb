@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'favorites/create'
-  get 'favorites/destroy'
-  get 'favorites/index'
-  # new index show edit create update destroy
 
   devise_for :admins
   devise_for :users
@@ -12,18 +8,26 @@ Rails.application.routes.draw do
     root 'items#index'
     # users
     get 'users/:id/exit' => 'users#exit', as: :user_exit
+
     resources :users, except:[:new,:index,:create] do
       # cart_items
       resources :cart_items, only:[:index,:create,:update,:destroy]
       # orders
       resources :orders, only:[:index,:new,:create]
       get 'orders/thanks'
+      # favorites
+      get 'favorites' => 'favorites#index'
     end
-    
+
     # addresses
     resources :addresses, only:[:create,:update,:destroy]
+
     # items
-    resources :items, only:[:show]
+    resources :items, only:[:show] do
+      # favorites
+      resource :favorites, only:[:create, :destroy]
+    end
+
     # searches
     get 'searches/items' => 'searches#items'
     get 'searches/artists' => 'searches#artists'
