@@ -4,8 +4,9 @@ class Item < ApplicationRecord
   belongs_to :label
   belongs_to :genre
   has_many   :cart_items
-  has_many   :users, through: :cart_items
-  has_many   :discs, dependent: :destroy
+  has_many   :users,     through: :cart_items
+  has_many   :discs,     dependent: :destroy
+    has_many :favorites, dependent: :destroy
 
   # refile
   attachment :jacket_image
