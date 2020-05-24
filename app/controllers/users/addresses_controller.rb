@@ -6,7 +6,7 @@ class Users::AddressesController < ApplicationController
       flash[:notice] = "#{address.name}様の配送先情報を登録しました。"
       redirect_to edit_user_path(current_user)
     else
-      @addresses = Address.where(user_id: current_user.id)
+      @addresses = current_user.addresses
       render "users/users/edit"
     end
   end
@@ -17,7 +17,7 @@ class Users::AddressesController < ApplicationController
       flash[:notice] = "#{address.name}様の配送先情報を編集しました。"
       redirect_to edit_user_path(current_user)
     else
-      @addresses = Address.where(user_id: current_user.id)
+      @addresses = current_user.addresses
       render "users/users/edit"
     end
   end
@@ -28,7 +28,7 @@ class Users::AddressesController < ApplicationController
       flash[:notice] = "#{address.name}様の配送先情報を削除しました。"
       redirect_to edit_user_path(current_user)
     else
-      @addresses = Address.where(user_id: current_user.id)
+      @addresses = current_user.addresses
       render "users/users/edit"
     end
   end

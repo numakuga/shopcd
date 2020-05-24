@@ -1,8 +1,8 @@
 class Users::OrdersController < ApplicationController
   def index
     @order = Order.new
-    @addresses = Address.where(user_id: current_user.id)
-    @cart_items = CartItem.where(user_id: current_user.id)
+    @addresses = current_user.addresses
+    @cart_items = current_user.cart_items
   end
 
   def new
