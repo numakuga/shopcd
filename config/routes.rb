@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :cart_items, only:[:index,:create,:update,:destroy]
       # orders
       resources :orders, only:[:index,:new,:create]
+      get 'orders/confirm'
       get 'orders/thanks'
       # favorites
       get 'favorites' => 'favorites#index'
