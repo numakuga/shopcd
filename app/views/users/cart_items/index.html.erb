@@ -19,7 +19,8 @@
 <div class="d-flex justify-content-between">
   <%= link_to "＜　買い物を続ける", root_path, class: "btn btn-info col-md-4 mt-5" %>
   <% if @cart_items.present? %>
-    <%= link_to "購入に進む　＞", user_orders_path(current_user), class: "btn btn-info col-md-4 mt-5" %>
+    <!-- formを追加することでform外でsubmitができるようになる -->
+    <%= submit_tag "購入に進む　＞", form:"piece_form", class: "btn btn-info col-md-4 mt-5" %>
   <% else %>
     <%= link_to "購入に進む　＞", "#", class: "btn btn-info col-md-4 mt-5 disabled" %>
   <% end %>
