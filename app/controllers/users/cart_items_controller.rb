@@ -33,7 +33,7 @@ class Users::CartItemsController < ApplicationController
     cart_item = CartItem.find(params[:id])
     if cart_item.update(cart_item_params)
       flash[:notice] = "#{cart_item.item.title}の購入個数を変更しました。"
-      redirect_to user_cart_items_path(current_user)
+      redirect_back(fallback_location: root_path)
     else
       @cart_items = current_user.cart_items.order(updated_at: :desc)
       render "index"

@@ -15,12 +15,7 @@
         <p class="card-text"><%= cart_item.item.artist.name %></p>
       </div>
       <!-- selectで個数変更できるようにしたい -->
-      <%= form_with model:[current_user, cart_item], local: true, id: "piece_form", class:"align-self-center" do |f| %>
-        <p class="card-text align-self-center">
-          <%= f.select :piece, options_for_select(cart_item.item.stock_array, selected: cart_item.piece) %>
-          <%= f.submit "個数変更", class: "btn btn-link" %>
-        </p>
-      <% end %>
+      <p class="card-text align-self-center"><%= cart_item.piece %></p>
       <!-- tax_includedメソッドはcart_item.rbに定義 -->
       <p class="card-text align-self-center"><%= cart_item.tax_included %>円(税込)</p>
       <p class="card-text align-self-center">在庫数：<%= cart_item.item.stock %>点</p>
