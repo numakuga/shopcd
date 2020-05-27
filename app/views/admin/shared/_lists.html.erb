@@ -1,0 +1,23 @@
+<h3>
+  <%= model_name %>一覧
+</h3>
+<table class="table table-bordered lists">
+  <% models.each do |f| %>
+  <tr>
+    <td>
+      <%= f.name %>
+      <%# <% binding.pry %>
+      <% if model_name == "レーベル" %>
+        <%= link_to "削除", admin_label_path(f.id), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
+        <%= link_to "編集", edit_admin_label_path(f.id), remote: true,class: "btn btn-success" %>
+      <% elsif model_name == "アーティスト" %>
+        <%= link_to "削除", admin_artist_path(f.id), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
+        <%= link_to "編集", edit_admin_artist_path(f.id), remote: true,class: "btn btn-success" %>
+      <% elsif model_name == "ジャンル" %>
+        <%= link_to "削除", admin_genre_path(f.id), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
+        <%= link_to "編集", edit_admin_genre_path(f.id), remote: true,class: "btn btn-success" %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>
