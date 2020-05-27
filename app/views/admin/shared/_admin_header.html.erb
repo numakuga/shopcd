@@ -1,0 +1,15 @@
+<%# admin header %>
+<%# headerのstyle="padding-top: *rem;"でbody部分が
+    下に潜込まないように修正 %>
+<header style="padding-top: 10rem;">
+  <nav class="navbar navbar-expand-md fixed-top bg-light">
+    <%= image_tag  'iOS の画像 (1).png', width: 100 %>
+    <%= link_to "サインアウト", destroy_admin_session_path,
+      method: :delete, data: {confirm: "サインアウトしますか？"}, class: "ml-auto mr-3"%>
+    <form class="form-inline my-2 my-md-0 ">
+        <input class="form-control mr-sm-2" type="search" placeholder="検索..." aria-label="検索...">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
+    </form>
+  </nav>
+</header>
+

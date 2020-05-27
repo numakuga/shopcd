@@ -1,2 +1,11 @@
 <h1>Admin::Genres#index</h1>
 <p>Find me in app/views/admin/genres/index.html.erb</p>
+
+<%= render 'admin/shared/errors_message', error: @new_genre %>
+
+<%= render 'admin/shared/form', model_name:"ジャンル", new_model: @new_genre %>
+<%= render 'admin/shared/lists', model_name:"ジャンル", models: @genres, model: "genre" %>
+<%# 編集ページのモーダル %>
+<%# div の class に modal を加えて、モーダルとして使用できる。fade でモーダルを表示する時に、アニメーションがフェードインになる。tabindexがあるとモーダル内でtabキーを使えるようになる。
+初期値が -1 。 %>
+<div id = "edit_modal" class = "modal fade" tabindex = "-1" ></div>

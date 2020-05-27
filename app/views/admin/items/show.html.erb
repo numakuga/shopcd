@@ -1,2 +1,64 @@
 <h1>Admin::Items#show</h1>
 <p>Find me in app/views/admin/items/show.html.erb</p>
+
+<div class = "container">
+  <div class = "col-lg-9">
+    <h1>商品詳細</h1>
+    <%= form_with model: @item do |f| %>
+      <table class = "table table-bordered">
+        <tr>
+          <th>販売状況</th>
+          <td>
+            <%= f.radio_button :status, true %>
+            <%= f.label :status, '販売中', value: true %>
+            <%= f.radio_button :status, false %>
+            <%= f.label :status, '在庫無し', value: false %>
+          </td>
+        </tr>
+        <tr>
+          <th>商品名</th>
+          <td><%= f.text_field :title %></td>
+        </tr>
+        <tr>
+          <th>価格</th>
+          <td><%= f.text_field :price %>（税抜）</td>
+        </tr>
+        <tr>
+          <th>サムネイル</th>
+          <td><%= f.file_field :jacket_image_id %></td>
+        </tr>
+        <tr>
+          <th>歌手名</th>
+          <td><%= f.text_field :artist_id, value: @item.artist.name %></td>
+        </tr>
+        <tr>
+          <th>発売日</th>
+          <td><%= f.date_field :release %></td>
+        </tr>
+        <tr>
+          <th>レーベル</th>
+          <td><%= f.text_field :label_id, value: @item.label.name %></td>
+        </tr>
+        <tr>
+          <th>ジャンル</th>
+          <td><%= f.text_field :genre_id, value: @item.genre.name %></td>
+        </tr>
+        <tr>
+          <%# while 条件 do
+              繰り返し処理
+              end %>
+          <th rowspan = "15">Disc 1</th>
+          <% i = 1 %>
+          <% while i <= 15 do %>
+          <td>
+          <%= i %>
+          </td>
+          <% i += 1 %>
+        </tr>
+          <% end %>
+      </table>
+      <%= f.submit "送信" %>
+    <% end %>
+
+  </div>
+</div>

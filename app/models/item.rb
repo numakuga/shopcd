@@ -11,6 +11,8 @@ class Item < ApplicationRecord
   # refile
   attachment :jacket_image
 
+  attachment :jacket_image
+
   # カートに入れるアイテム個数選択用の配列
   def stock_array
     self.stock == 0 ? ["売り切れ"]:[*1..self.stock]

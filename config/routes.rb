@@ -40,11 +40,11 @@ Rails.application.routes.draw do
     # addresses
     resources :addresses, only:[:destroy]
     # artists
-    resources :artists, only:[:index,:create,:update,:destroy]
+    resources :artists, only:[:index,:create,:update,:destroy,:edit]
     # lebels
-    resources :labels, only:[:index,:create,:update,:destroy]
+    resources :labels, only:[:index,:create,:update,:destroy,:edit]
     # genres
-    resources :genres, only:[:index,:create,:update,:destroy]
+    resources :genres, only:[:index,:create,:update,:destroy,:edit]
     # orders
     resources :orders, only:[:index,:update]
     # items
