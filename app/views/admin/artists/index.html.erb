@@ -1,2 +1,11 @@
 <h1>Admin::Artists#index</h1>
 <p>Find me in app/views/admin/artists/index.html.erb</p>
+
+<%= render 'admin/shared/errors_message', error: @new_artist %>
+
+<%= render 'admin/shared/form', model_name:"アーティスト", new_model: @new_artist %>
+<%= render "admin/shared/lists", model_name:"アーティスト",models: @artists, model: "artist" %>
+<%# 編集ページのモーダル %>
+<%# div の class に modal を加えて、モーダルとして使用できる。fade でモーダルを表示する時に、アニメーションがフェードインになる。tabindexがあるとモーダル内でtabキーを使えるようになる。
+初期値が -1 。 %>
+<div id = "edit_modal" class = "modal fade" tabindex = "-1" ></div>
