@@ -20,7 +20,9 @@
   <%= link_to "＜　買い物を続ける", root_path, class: "btn btn-info col-md-4 mt-5" %>
   <% if @cart_items.present? %>
     <!-- formを追加することでform外でsubmitができるようになる -->
-    <%= submit_tag "購入に進む　＞", form:"piece_form", class: "btn btn-info col-md-4 mt-5" %>
+    <!-- 最初の一つしかパラメータが送られてこない問題(update) -->
+    <%# <%= submit_tag "購入に進む　＞", form:"piece_form", class: "btn btn-info col-md-4 mt-5" %>
+    <%= link_to "購入に進む　＞", new_user_order_path(current_user), class: "btn btn-info col-md-4 mt-5" %>
   <% else %>
     <%= link_to "購入に進む　＞", "#", class: "btn btn-info col-md-4 mt-5 disabled" %>
   <% end %>
