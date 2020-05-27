@@ -1,0 +1,7 @@
+ja:
+  enums:
+    order:
+      payment:
+        creditcard: クレジットカード
+        bank: 銀行
+        cashondelivery: 代引き
