@@ -1,7 +1,7 @@
 class Users::CartItemsController < ApplicationController
 
   def index
-    @cart_items = current_user.cart_items.group(:item_id).order(updated_at: :desc)
+    @cart_items = current_user.cart_items.order(updated_at: :desc)
     # order：eachの配列をupdateの降順
   end
 
@@ -29,6 +29,15 @@ class Users::CartItemsController < ApplicationController
   end
 
   def update
+    # まだ未完成
+    cart_item = CartItem.find(params[:id])
+    if cart_item.update(cart_item_params)
+      flash[:notice] = "#{cart_item.item.title}の購入個数を変更しました。"
+      redirect_to user_cart_items_path(current_user)
+    else
+      @cart_items = current_user.cart_items.order(updated_at: :desc)
+      render "index"
+    end
   end
 
   def destroy
