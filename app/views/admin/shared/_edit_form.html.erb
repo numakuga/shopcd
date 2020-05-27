@@ -1,0 +1,20 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <p><%= notice %></p>
+
+    <%= render 'admin/shared/errors_message', error: edit_model %>
+    <h3><%= model_name %>編集フォーム</h3>
+    <%# namespace がある場合、[:ネームスペース名,変数名] %>
+    <%= form_with model: [:admin,edit_model], remote: true do |f| %>
+    <table class="table table-bordered form">
+      <tr>
+        <th><%= model_name %>名</th>
+        <td><%= f.text_field :name %>
+            <%= f.submit "編集", class: "btn btn-m btn-primary" %>
+        </td>
+      </tr>
+    </table>
+    <% end %>
+  </div>
+</div>
+
