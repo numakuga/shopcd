@@ -1,2 +1,38 @@
 <h1>Admin::Items#index</h1>
 <p>Find me in app/views/admin/items/index.html.erb</p>
+
+<h3 class = "table_title">登録済み商品一覧</h3>
+<%# text-nowrapでテーブル内の文章を折り返さない。 %>
+<table class="table table-hover item_table text-nowrap">
+  <thead>
+    <tr class = "table-primary">
+      <th>ID</th>
+      <th scope="col">商品名</th>
+      <th>歌手名</th>
+      <th>価格（税抜）</th>
+      <th>ジャンル</th>
+      <th>レーベル</th>
+      <th>在庫数</th>
+      <th>販売ステータス</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |f| %>
+      <tr class = "position-relative" >
+      <%# <%binding.pry%>
+        <td scope="row"><%= f.id %></td>
+        <td><a href="/admin/items/<%= f.id %>" class="stretched-link"><%= f.title %></a></td>
+        <td><%= f.artist.name %></td>
+        <td><%= f.price %></td>
+        <td><%= f.genre.name %></td>
+        <td><%= f.label.name %></td>
+        <td><%= f.stock %></td>
+        <% if f.status == true %>
+          <td><%= "販売中" %></td>
+        <% else %>
+          <td><%= "在庫無し" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
