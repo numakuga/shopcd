@@ -12,34 +12,29 @@
 
 <body id="wrapper">
   <header>
-    <!-- 管理者 -->
     <% if request.fullpath.include? "admin" %>
-    <!-- admin側のヘッダー -->
-    <%= render 'admin/shared/admin_header' %>
+      <%= render 'admin/shared/admin_header' %><!-- admin側のヘッダー -->
     <% else %>
-    <!-- ユーザー -->
-    <% if user_signed_in? %>
-    <%= render 'users/shared/login_header' %>
-    <!-- ユーザーサインイン時 -->
-    <% else %>
-    <%= render 'users/shared/logout_header' %>
-    <!-- ユーザーサインアウト時 -->
-    <% end %>
+      <% if user_signed_in? %>
+        <%= render 'users/shared/login_header' %><!-- ユーザーサインイン時 -->
+      <% else %>
+        <%= render 'users/shared/logout_header' %><!-- ユーザーサインアウト時 -->
+      <% end %>
     <% end %>
   </header>
 
   <main>
     <div class="container">
-      <% if request.fullpath.include? "users/" %>
-        <%= yield %>
-      <% else %>
+      <% if request.fullpath.include? "admins" %>
         <div class = "row">
-          <%# ページ一覧 %>
+          <!-- ページ一覧 -->
           <%= render 'admin/shared/page_lists' %>
           <div class = "col-9">
             <%= yield %>
           </div>
         </div>
+      <% else %>
+        <%= yield %>
       <% end %>
     </div>
   </main>
