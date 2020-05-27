@@ -70,3 +70,7 @@ gem 'refile-mini_magick'
 gem 'bootstrap', '~> 4.1.1'
 gem 'jquery-rails'
 gem 'ransack'
+# 論理削除
+gem "paranoia", "~> 2.2"
+# enum値を日本語に変換
+gem 'enum_help'

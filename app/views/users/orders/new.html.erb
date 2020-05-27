@@ -1,2 +1,69 @@
-<h1>User::Orders#new</h1>
-<p>Find me in app/views/user/orders/new.html.erb</p>
+<% @page_title = "支払い方法/配送先選択" %>
+
+<h2 class="font-weight-bold border-bottom pb-2 mb-3">購入者情報</h2>
+<%= render "users/shared/user_info" %>
+
+<%= form_with url: user_orders_confirm_path(current_user), method: :get, local: true do %>
+  <h2 class="font-weight-bold border-bottom pb-2 mb-3">支払い方法選択</h2>
+  <div class="card card-body mb-5 bl-blue">
+    <!-- 支払い方法が各配列になっているからpayment[0]でok (例）[["hoge", "0"],[],[]] -->
+    <% Order.payments.each_with_index do |payment, i| %>
+      <h5 class="mb-3 custom-control custom-radio">
+        <%= radio_button_tag :payment, payment[0], false, class:"custom-control-input" %>
+        <%= label_tag "payment_#{payment[0]}", "#{payment[0]}", class:"custom-control-label" %>
+      </h5>
+      <% case i
+      when 0 %>
+        <p class="mb-5">カード番号入力</p>
+      <% when 1 %>
+        <p class="mb-5">代金のお支払い後に商品が発送されます。なお、お支払いの際に必要となるお支払い番号は、出荷準備に入り次第発行されます。</p>
+      <% when 2 %>
+        <p>代引き手数料がかかります。</p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <h2 class="font-weight-bold border-bottom pb-2 mb-3">配送先住所選択</h2>
+  <div class="card card-body mb-5 bl-blue">
+    <h5 class="mb-4 custom-control custom-radio">
+      <%= radio_button_tag :address_num, 0, true, class:"custom-control-input" %>
+      <%= label_tag :address, "#{current_user.address}", class:"custom-control-label", for: "address_num_0" %>
+    </h5>
+
+    <h5 class="mb-4 custom-control custom-radio">
+      <%= radio_button_tag :address_num, 1, false, class:"custom-control-input" %>
+      <%= label_tag :address, :登録済みの住所とは別の住所を使う場合, class:"custom-control-label", for: "address_num_1" %>
+    </h5>
+    <div class="form-group row">
+      <%= label_tag :name, :宛名, class:"col-md-2" %>
+      <%= text_field_tag :name, "", class: "form-control col-md-2" %>
+    </div>
+    <div class="form-group row">
+      <%= label_tag :postal_code, :郵便番号, class:"col-md-2" %>
+      <%= text_field_tag :postal_code, "", placeholder:"ハイフンなし", class: "form-control col-md-2" %>
+    </div>
+    <div class="form-group row">
+      <%= label_tag :address, :住所, class:"col-md-2" %>
+      <%= text_field_tag :address, "", class: "form-control col-md-4" %>
+    </div>
+
+    <h5 class="mt-4 mb-3 custom-control custom-radio">
+      <%= radio_button_tag :address_num, 2, false, class:"custom-control-input" %>
+      <%= label_tag :address_num, :登録済み住所を使う場合, class:"custom-control-label", for: "address_num_2" %>
+    </h5>
+    <%= select_tag :address_id, options_for_select(@addresses.map {|address| [address.postal_code + " " + address.address + " " +  address.name, address.id]}), include_blank: '選択してください', class: "custom-select" %>
+
+
+  </div>
+
+  <h2 class="font-weight-bold border-bottom pb-2 mb-3">合計金額</h2>
+  <%= render "users/shared/cart_items_index", cart_items: @cart_items %>
+  <div class="actions mt-5">
+    <%= submit_tag "確認画面へ", class: "btn btn-lg btn-info col-md-12"%>
+  </div>
+<% end %>
+
+<div class="d-flex justify-content-between mt-5">
+  <%= link_to "＜　カートへ戻る", user_cart_items_path(current_user), class: "btn btn-outline-info col-md-4" %>
+  <%= link_to "商品一覧へ　＞", root_path, class: "btn btn-outline-info col-md-4" %>
+</div>
