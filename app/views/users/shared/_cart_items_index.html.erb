@@ -21,7 +21,7 @@
           <%= f.submit "個数変更", class: "btn btn-link" %>
         </p>
       <% end %>
-      <!-- メソッドモデルに移動したい -->
+      <!-- tax_includedメソッドはcart_item.rbに定義 -->
       <p class="card-text align-self-center"><%= cart_item.tax_included %>円(税込)</p>
       <p class="card-text align-self-center">在庫数：<%= cart_item.item.stock %>点</p>
       <!-- 購入情報入力画面時にも削除できるようにする？ -->
