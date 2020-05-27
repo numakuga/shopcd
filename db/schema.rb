@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_064403) do
+ActiveRecord::Schema.define(version: 2020_05_23_153004) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer "user_id"
@@ -52,6 +52,13 @@ ActiveRecord::Schema.define(version: 2020_05_13_064403) do
 
   create_table "discs", force: :cascade do |t|
     t.integer "item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -110,11 +117,11 @@ ActiveRecord::Schema.define(version: 2020_05_13_064403) do
   end
 
   create_table "songs", force: :cascade do |t|
-    t.integer "disk_id"
+    t.integer "disc_id"
     t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["disk_id"], name: "index_songs_on_disk_id"
+    t.index ["disc_id"], name: "index_songs_on_disc_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -127,7 +134,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_064403) do
     t.string "address", null: false
     t.string "postal_code", null: false
     t.string "phone", null: false
-    t.boolean "is_deleted", default: false, null: false
+    t.datetime "is_deleted"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

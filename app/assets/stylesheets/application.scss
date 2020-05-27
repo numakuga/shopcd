@@ -25,11 +25,24 @@
  footer {
    margin-top: auto;
 }
-// フッター固定
-
+// エラー時
 .field_with_errors {
   display: contents;
   input {
     @extend .is-invalid;
   }
+}
+// ヘッダー カラー
+.bg-grey {
+  background-color: #DDDDDD;
+}
+.bg-blue {
+  background-color: #D7EEFF;
+}
+// カードワンポイント
+.bt-blue {
+  border-top: solid 5px #D7EEFF
+}
+.bl-blue {
+  border-left: solid 5px #D7EEFF;
 }

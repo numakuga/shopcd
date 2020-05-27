@@ -1,0 +1,15 @@
+<h2 class="font-weight-bold border-bottom pb-2 mb-3"><%= @page_title = "確認画面" %></h2>
+
+<h4 class="font-weight-bold border-bottom pb-2 mb-3">支払い方法</h4>
+<%= @payment %>
+
+<h4 class="font-weight-bold border-bottom pb-2 mb-3">配送先</h4>
+
+<h4 class="font-weight-bold border-bottom pb-2 mb-3">合計金額</h4>
+
+
+
+<div class="d-flex justify-content-between mt-5">
+  <%= link_to "＜　支払い方法選択へ戻る", user_cart_items_path(current_user), class: "btn btn-outline-info col-md-4" %>
+  <%= link_to "商品一覧へ　＞", root_path, class: "btn btn-outline-info col-md-4" %>
+</div>

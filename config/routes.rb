@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # new index show edit create update destroy
 
   devise_for :admins
   devise_for :users
@@ -7,24 +6,29 @@ Rails.application.routes.draw do
   scope module: :users do
 
     root 'items#index'
-
     # users
+    get 'users/:id/exit' => 'users#exit', as: :user_exit
+
     resources :users, except:[:new,:index,:create] do
       # cart_items
       resources :cart_items, only:[:index,:create,:update,:destroy]
+      # orders
+      resources :orders, only:[:index,:new,:create]
+      get 'orders/confirm'
+      get 'orders/thanks'
+      # favorites
+      get 'favorites' => 'favorites#index'
     end
-    get 'users/:id/exit' => 'users#exit', as: :exit
 
     # addresses
     resources :addresses, only:[:create,:update,:destroy]
 
-    # orders
-    resources :orders, only:[:index,:new,:create]
-    get 'orders/thanks'
-
     # items
-    resources :items, only:[:show]
-    
+    resources :items, only:[:show] do
+      # favorites
+      resource :favorites, only:[:create, :destroy]
+    end
+
     # searches
     get 'searches/items' => 'searches#items'
     get 'searches/artists' => 'searches#artists'

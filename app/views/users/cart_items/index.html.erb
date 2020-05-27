@@ -1,2 +1,29 @@
-<h1>User::CartItems#index</h1>
-<p>Find me in app/views/user/cart_items/index.html.erb</p>
+<h2 class="font-weight-bold border-bottom pb-2 mb-5">
+  <%= @page_title = "カート" %>
+</h2>
+
+<% if @cart_items.present? %>
+  <p>現在カートには、こちらの商品が入っております。</p>
+  <h5 class="card-header sticky-top border p-4 font-weight-bold d-flex justify-content-around">
+    <sapn class="col-md-6 text-center">商品</sapn>
+    <span class="col-md-1">数量</span>
+    <span class="col-md-2">金額</span>
+    <span class="col-md-2 mr-5">在庫数</span>
+  </h5>
+  <%= render "users/shared/cart_items_index", cart_items: @cart_items %>
+<% else %>
+  <h4>現在お客様のショッピングカートに商品はありません。</h4>
+<% end %>
+
+
+<div class="d-flex justify-content-between">
+  <%= link_to "＜　買い物を続ける", root_path, class: "btn btn-info col-md-4 mt-5" %>
+  <% if @cart_items.present? %>
+    <!-- formを追加することでform外でsubmitができるようになる -->
+    <!-- 最初の一つしかパラメータが送られてこない問題(update) -->
+    <%# <%= submit_tag "購入に進む　＞", form:"piece_form", class: "btn btn-info col-md-4 mt-5" %>
+    <%= link_to "購入に進む　＞", new_user_order_path(current_user), class: "btn btn-info col-md-4 mt-5" %>
+  <% else %>
+    <%= link_to "購入に進む　＞", "#", class: "btn btn-info col-md-4 mt-5 disabled" %>
+  <% end %>
+</div>

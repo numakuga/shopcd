@@ -1,2 +1,30 @@
-<h1>User::Users#exit</h1>
-<p>Find me in app/views/user/users/exit.html.erb</p>
+<h2 class="font-weight-bold border-bottom pb-2 mb-4"><%= @page_title = "退会手続き" %></h2>
+<h5 class="mt-4">ANAGO SHOPEから退会してしまうと・・・</h5>
+<h5 class="mb-4 text-danger font-weight-bold">下記サービスのご利用できなくなり、データが全て削除されます。</h5>
+
+<div class="card card-body font-weight-bold">
+  <ul>
+    <li class="mt-2">会員情報</li>
+    <li class="mt-2">登録済み配送先</li>
+    <li class="mt-2">商品購入機能</li>
+    <li class="mt-2">購入履歴</li>
+    <li class="mt-2">カート内商品</li>
+    <li class="mt-2">お気に入り機能</li>
+  </ul>
+</div>
+
+<div class="card card-header text-center mt-4 pt-4 pb-4">
+  <p>
+    なお、一旦退会した後の情報の復元は一切できませんのでご了承ください。<br>
+    退会手続きを続ける場合には、以下より手続きを行ってください。
+  </p>
+  <span class="d-flex justify-content-center">
+    <%= link_to "キャンセル", user_path(current_user), class: "btn btn-outline-secondary mr-4 col-md-2" %>
+    <%= link_to "退会", user_path(current_user), method: :delete, data: {confirm: "本当に退会しますか？"}, class: "btn btn-outline-secondary col-md-2" %>
+  </span>
+</div>
+
+<div class="d-flex justify-content-between mt-5">
+  <%= link_to "＜　マイページへ戻る", user_path(current_user), class: "btn btn-outline-info col-md-4" %>
+  <%= link_to "商品一覧へ　＞", root_path, class: "btn btn-outline-info col-md-4" %>
+</div>
