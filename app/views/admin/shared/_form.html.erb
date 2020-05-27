@@ -1,0 +1,14 @@
+<p><%= notice %></p>
+
+<h3><%= model_name %>新規作成フォーム</h3>
+<%# namespace がある場合、[:ネームスペース名,変数名] %>
+<%= form_with model: [:admin,new_model],local:true do |f| %>
+<table class="table table-bordered form">
+  <tr>
+    <th><%= model_name %>名</th>
+    <td><%= f.text_field :name, autofocus: true %>
+        <%= f.submit "作成", class: "btn btn-m btn-primary" %>
+    </td>
+  </tr>
+</table>
+<% end %>
