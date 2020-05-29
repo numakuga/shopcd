@@ -24,4 +24,9 @@ class User < ApplicationRecord
     validates :postal_code, length: {is: 7}
     validates :phone
   end
+
+  # メソッド
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
