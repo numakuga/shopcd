@@ -1,6 +1,6 @@
 <div class="card mb-5">
   <div class="card-header">
-    <%= current_user.first_name + current_user.last_name %>（<%= current_user.first_kana + current_user.last_kana %>）様
+    <%= current_user.full_name %>（<%= current_user.kana_full_name %>）様
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">

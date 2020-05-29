@@ -29,4 +29,8 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def kana_full_name
+    "#{first_kana} #{last_kana}"
+  end
 end
