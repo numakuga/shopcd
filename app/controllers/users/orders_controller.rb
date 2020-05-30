@@ -13,11 +13,10 @@ class Users::OrdersController < ApplicationController
     flash.now[:notice] = "まだ購入は完了していません。"
     @delivery_cost = 500
     @order = current_user.orders.new(order_params)
-    
   end
 
   def create
-
+    binding.pry
   end
 
   def thanks
@@ -29,21 +28,29 @@ class Users::OrdersController < ApplicationController
     params.require(:address).permit(:name, :postal_code, :address)
   end
 
+  def create_address
+    @address = current_user.addresses.create(address_params)
+  end
+
   def order_params
     case params[:address_num].to_i
     when 0 #ログインユーザー登録住所
-      # @full_name = current_user.first_name + current_user.last_name
+      name = current_user.full_name
       postal_code = current_user.postal_code
       address = current_user.address
     when 1 #フォームで入力住所
+      name = params[:name]
       address = params[:address]
       postal_code = params[:postal_code]
     when 2 #セレクトタグで選択住所
-      address_record = Address.params[:address_id]
+      address_record = Address.find(params[:address_id])
+      name = address_record.name
       postal_code = address_record.postal_code
       address = address_record.address
     end
+    # ハッシュの形で送らないとあかんみたい
     {
+      name: name,
       postal_code: postal_code,
       address: address,
       payment: params[:payment],

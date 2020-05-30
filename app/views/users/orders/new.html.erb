@@ -52,14 +52,13 @@
       <%= label_tag :address_num, :登録済み住所を使う場合, class:"custom-control-label", for: "address_num_2" %>
     </h5>
     <%= select_tag :address_id, options_for_select(@addresses.map {|address| [address.postal_code + " " + address.address + " " +  address.name, address.id]}), include_blank: '選択してください', class: "custom-select" %>
-
-
   </div>
 
   <h2 class="font-weight-bold border-bottom pb-2 mb-3">合計金額</h2>
   <%= render "users/shared/cart_items_index", cart_items: @cart_items %>
+
   <div class="actions mt-5">
-    <%= submit_tag "確認画面へ", class: "btn btn-lg btn-info col-md-12"%>
+    <%= submit_tag "確認画面へ", class: "btn btn-lg btn-info col-md-12" %>
   </div>
 <% end %>
 
