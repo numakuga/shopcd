@@ -1,6 +1,6 @@
 class Users::OrdersController < ApplicationController
   def index
-
+    @orders = current_user.orders
   end
 
   def new
@@ -13,10 +13,33 @@ class Users::OrdersController < ApplicationController
     flash.now[:notice] = "まだ購入は完了していません。"
     @delivery_cost = 500
     @order = current_user.orders.new(order_params)
+    return if @order.valid?
+    render :new
   end
 
   def create
-    binding.pry
+    @delivery_cost = 500
+    boolean  = params[:address_num].to_i == 1 ? create_address : true
+    if boolean
+      @order = current_user.orders.new(order_params)
+      if @order.save
+        current_user.cart_items.each do |cart_item|
+          @order.order_details.create!(
+            item_id: cart_item.item_id,
+            cd_price: cart_item.item.price,
+            cd_amount: cart_item.piece
+          )
+          cart_item.item.reduce_stock(cart_item.piece)
+          cart_item.destroy
+        end
+        redirect_to user_orders_thanks_path(current_user)
+      else
+        render :confirm
+      end
+    else
+      @order = current_user.orders.new(order_params)
+      render :confirm
+    end
   end
 
   def thanks
@@ -25,7 +48,7 @@ class Users::OrdersController < ApplicationController
   private
 
   def address_params
-    params.require(:address).permit(:name, :postal_code, :address)
+    params.permit(:name, :postal_code, :address)
   end
 
   def create_address
