@@ -16,3 +16,9 @@ ja:
         creditcard: クレジットカード
         bank: 銀行
         cashondelivery: 代引き
+      status:
+        notaccepted: 未受付
+        accepted: 受付済み
+        preparation: 出荷準備中
+        shipped: 出荷済
+        delivered: 配送済み

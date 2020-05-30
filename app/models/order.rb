@@ -3,4 +3,5 @@ class Order < ApplicationRecord
   has_many   :order_details, dependent: :destroy
 
   enum payment: [:creditcard, :bank, :cashondelivery]
+  enum status: [:notaccepted, :accepted, :preparation, :shipped, :delivered]
 end
