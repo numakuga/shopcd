@@ -6,4 +6,8 @@ class CartItem < ApplicationRecord
   def tax_included
     (self.item.price * 1.10).round.to_s(:delimited)
   end
+
+  def less_than_stock?
+    piece <= item.stock
+  end
 end

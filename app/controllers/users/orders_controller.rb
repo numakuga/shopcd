@@ -1,6 +1,6 @@
 class Users::OrdersController < ApplicationController
   def index
-    @orders = current_user.orders
+    @orders = current_user.orders.order(updated_at: :desc)
   end
 
   def new
@@ -19,7 +19,18 @@ class Users::OrdersController < ApplicationController
 
   def create
     @delivery_cost = 500
+    # フォームで入力されたパラメータだったらcreate_addressへ遷移
     boolean  = params[:address_num].to_i == 1 ? create_address : true
+
+    current_user.cart_items.each do |cart_item|
+      unless cart_item.less_than_stock?
+        flash[:notice] = "#{cart_item.item.title}購入点数の在庫がありません。数量をご確認ください。"
+        @cart_items = current_user.cart_items.order(updated_at: :desc)
+        render "users/cart_items/index"
+        return
+      end
+    end
+
     if boolean
       @order = current_user.orders.new(order_params)
       if @order.save
@@ -52,7 +63,7 @@ class Users::OrdersController < ApplicationController
   end
 
   def create_address
-    @address = current_user.addresses.create(address_params)
+    current_user.addresses.create(address_params)
   end
 
   def order_params
@@ -62,6 +73,7 @@ class Users::OrdersController < ApplicationController
       postal_code = current_user.postal_code
       address = current_user.address
     when 1 #フォームで入力住所
+      # create_addressを使用したいが、confirmで表示させる際にはまだsaveしない為ダメだった
       name = params[:name]
       address = params[:address]
       postal_code = params[:postal_code]
