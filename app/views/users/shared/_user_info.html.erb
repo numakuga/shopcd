@@ -4,7 +4,7 @@
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
-      <span class="font-weight-bold col-md-2">郵便番号：</span><%= current_user.postal_code %>
+      <span class="font-weight-bold col-md-2">郵便番号：</span><%= current_user.postal_code.insert(3, "-") %>
     </li>
     <li class="list-group-item">
       <span class="font-weight-bold col-md-2">住所：</span><%= current_user.address %>
