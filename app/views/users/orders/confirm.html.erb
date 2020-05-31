@@ -1,45 +1,54 @@
-<h2 class="font-weight-bold border-bottom pb-2 mb-3"><%= @page_title = "確認画面" %></h2>
+<h2 class="font-weight-bold border-bottom pb-2 mt-5 mb-3"><%= @page_title = "確認画面" %></h2>
 
-  <div class="card mt-4">
-    <h5 class="card-header font-weight-bold">支払い方法</h5>
-    <div class="card-body">
-      <h5 class="card-title"><%= @order.payment_i18n %></h5>
-      <p class="card-text">カード番号×××××××</p>
-    </div>
+
+<div class="card mt-4">
+  <h5 class="card-header font-weight-bold">支払い方法</h5>
+  <div class="card-body">
+    <h5 class="card-title"><%= @order.payment_i18n %></h5>
+    <p class="card-text">カード番号×××××××</p>
   </div>
-  <div class="card mt-4">
-    <h5 class="card-header font-weight-bold">配送先</h5>
-    <div class="card-body">
-      <h5 class="card-title"><%= @order.name %> 様 宛</h5>
-      <p class="card-text">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            郵便番号：<%= @order.postal_code %>
-          </li>
-          <li class="list-group-item">
-            住所：<%= @order.address %>
-          </li>
-        </ul>
-      </p>
-    </div>
+</div>
+<div class="card mt-4">
+  <h5 class="card-header font-weight-bold">配送先</h5>
+  <div class="card-body">
+    <h5 class="card-title"><%= @order.name %> 様 宛</h5>
+    <p class="card-text">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          郵便番号：<%= @order.postal_code %>
+        </li>
+        <li class="list-group-item">
+          住所：<%= @order.address %>
+        </li>
+      </ul>
+    </p>
   </div>
-  <div class="card mt-4">
-    <h5 class="card-header font-weight-bold">合計金額</h5>
-    <div class="card-body">
-      <h5 class="card-title">
-        <%= (@order.total_price - @order.delivery_cost).to_s(:delimited) %>円
-      </h5>
-      <p class="card-text">送料：<%= @order.delivery_cost %>円</p>
-      <h4 class="card-text border-top pt-3">
-        合計：<%= @order.total_price.to_s(:delimited) %>円
-      </h4>
-      <p class="card-text mt-3 text-black-50">よろしければ購入確定ボタンをクリックしてください。</p>
-    </div>
+</div>
+<div class="card mt-4">
+  <h5 class="card-header font-weight-bold">合計金額</h5>
+  <div class="card-body">
+    <h5 class="card-title">
+      税込み：<%= (@order.total_price - @order.delivery_cost).to_s(:delimited) %>円
+    </h5>
+    <p class="card-text">送料：<%= @order.delivery_cost %>円</p>
+    <h4 class="card-text border-top pt-3">
+      合計：<%= @order.total_price.to_s(:delimited) %>円
+    </h4>
+    <p class="card-text mt-3 text-black-50">よろしければ購入確定ボタンをクリックしてください。</p>
   </div>
+</div>
+
+<%= form_with url: user_orders_path(current_user), method: :post, local: true do %>
   <div class="actions mt-5">
-    <%= link_to "購入確定", "#", class: "btn btn-lg btn-info col-md-12"%>
+    <%= hidden_field_tag :address_num, params[:address_num] %>
+    <%= hidden_field_tag :address_id, params[:address_id] %>
+    <%= hidden_field_tag :payment, params[:payment] %>
+    <%= hidden_field_tag :name, @order.name %>
+    <%= hidden_field_tag :address, @order.address %>
+    <%= hidden_field_tag :postal_code, @order.postal_code %>
+    <%= submit_tag "購入確定", class: "btn btn-lg btn-info col-md-12"%>
   </div>
-
+<% end %>
 
 <div class="d-flex justify-content-between mt-5">
   <%= link_to "＜　支払い方法選択へ戻る", new_user_order_path(current_user), class: "btn btn-outline-info col-md-4" %>
