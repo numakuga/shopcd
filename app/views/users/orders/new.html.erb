@@ -1,6 +1,6 @@
 <% @page_title = "支払い方法/配送先選択" %>
 
-<h2 class="font-weight-bold border-bottom pb-2 mb-3">購入者情報</h2>
+<h2 class="font-weight-bold border-bottom pb-2 mt-5 mb-3">購入者情報</h2>
 <%= render "users/shared/user_info" %>
 
 <%= form_with url: user_orders_confirm_path(current_user), method: :get, local: true do %>
@@ -9,7 +9,7 @@
     <!-- 支払い方法が各配列になっているからpayment[0]でok (例）[["hoge", "0"],[],[]] -->
     <% Order.payments_i18n.each_with_index do |payment, i| %>
       <h5 class="mb-3 custom-control custom-radio">
-        <%= radio_button_tag :payment, payment[0], false, class:"custom-control-input" %>
+        <%= radio_button_tag :payment, payment[0], true, class:"custom-control-input" %>
         <%= label_tag "payment_#{payment[0]}", payment[1], class:"custom-control-label" %>
       </h5>
       <% case i
