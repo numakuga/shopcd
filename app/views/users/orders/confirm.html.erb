@@ -5,7 +5,14 @@
   <h5 class="card-header font-weight-bold">支払い方法</h5>
   <div class="card-body">
     <h5 class="card-title"><%= @order.payment_i18n %></h5>
-    <p class="card-text">カード番号×××××××</p>
+    <% case Order.payments[@order.payment]
+    when 0 %>
+      <p class="card-text">カード番号×××××××</p>
+    <% when 1 %>
+      <p class="card-text">振り込み手数料はお客様負担となります。</p>
+    <% when 2 %>
+      <p class="card-text">代引き手数料：<%= @handing_cost %>円</p>
+    <% end %>
   </div>
 </div>
 <div class="card mt-4">
@@ -28,29 +35,33 @@
   <h5 class="card-header font-weight-bold">合計金額</h5>
   <div class="card-body">
     <h5 class="card-title">
-      税込み：<%= (@order.total_price - @order.delivery_cost).to_s(:delimited) %>円
+      税込み：<%= (@order.total_price - @order.delivery_cost - @handing_cost).to_s(:delimited) %>円
     </h5>
     <p class="card-text">送料：<%= @order.delivery_cost %>円</p>
+    <% if Order.payments[@order.payment] == 2 %>
+      <p class="card-text">代引き手数料：<%= @handing_cost %>円</p>
+    <% end %>
     <h4 class="card-text border-top pt-3">
       合計：<%= @order.total_price.to_s(:delimited) %>円
     </h4>
     <p class="card-text mt-3 text-black-50">よろしければ購入確定ボタンをクリックしてください。</p>
   </div>
 </div>
-
-<%= form_with url: user_orders_path(current_user), method: :post, local: true do %>
+<!-- ここで必要な情報をcreateに送信 -->
+<%= form_with model: [current_user, @order], local: true do |f| %>
   <div class="actions mt-5">
-    <%= hidden_field_tag :address_num, params[:address_num] %>
-    <%= hidden_field_tag :address_id, params[:address_id] %>
-    <%= hidden_field_tag :payment, params[:payment] %>
-    <%= hidden_field_tag :name, @order.name %>
-    <%= hidden_field_tag :address, @order.address %>
-    <%= hidden_field_tag :postal_code, @order.postal_code %>
-    <%= submit_tag "購入確定", class: "btn btn-lg btn-info col-md-12"%>
+    <%= f.hidden_field :address_num, :value => params[:order][:address_num] %>
+    <%= f.hidden_field :address_id,  :value => params[:order][:address_id] %>
+    <%= f.hidden_field :payment,     :value => params[:order][:payment] %>
+    <%= f.hidden_field :name,        :value => @order.name %>
+    <%= f.hidden_field :address,     :value => @order.address %>
+    <%= f.hidden_field :postal_code, :value => @order.postal_code %>
+
+    <%= f.submit "購入確定", class: "btn btn-lg btn-info col-md-12"%>
+  </div>
+  <div class="d-flex justify-content-between mt-5">
+    <!-- createでnameのparamsを情報を保持しながら戻すようにしている -->
+    <%= f.submit "＜　支払い方法選択へ戻る", name: "back", class: "btn btn-outline-info col-md-4" %>
+    <%= link_to "商品一覧へ　＞", root_path, class: "btn btn-outline-info col-md-4" %>
   </div>
 <% end %>
-
-<div class="d-flex justify-content-between mt-5">
-  <%= link_to "＜　支払い方法選択へ戻る", new_user_order_path(current_user), class: "btn btn-outline-info col-md-4" %>
-  <%= link_to "商品一覧へ　＞", root_path, class: "btn btn-outline-info col-md-4" %>
-</div>

@@ -12,15 +12,27 @@ class Users::OrdersController < ApplicationController
   def confirm
     flash.now[:notice] = "まだ購入は完了していません。"
     @delivery_cost = 500
+    @handing_cost  = Order.payments[params[:order][:payment]] == 2 ? 500 : 0
     @order = current_user.orders.new(order_params)
+
+    # 手動でバリデーションチェック
     return if @order.valid?
+    @addresses = current_user.addresses
+    @cart_items = current_user.cart_items.order(updated_at: :desc)
     render :new
   end
 
   def create
     @delivery_cost = 500
-    # フォームで入力されたパラメータだったらcreate_addressへ遷移
-    boolean  = params[:address_num].to_i == 1 ? create_address : true
+    @handing_cost  = Order.payments[params[:order][:payment]] == 2 ? 500 : 0
+    # 支払い方法選択等に戻る場合
+    if params[:back]
+      @order = current_user.orders.new(order_params)
+      @addresses = current_user.addresses
+      @cart_items = current_user.cart_items.order(updated_at: :desc)
+      render :new
+      return
+    end
 
     current_user.cart_items.each do |cart_item|
       unless cart_item.less_than_stock?
@@ -30,6 +42,9 @@ class Users::OrdersController < ApplicationController
         return
       end
     end
+
+    # フォームで入力されたパラメータだったらcreate_addressへ遷移
+    boolean  = params[:order][:address_num].to_i == 1 ? create_address : true
 
     if boolean
       @order = current_user.orders.new(order_params)
@@ -59,7 +74,7 @@ class Users::OrdersController < ApplicationController
   private
 
   def address_params
-    params.permit(:name, :postal_code, :address)
+    params.require(:order).permit(:name, :postal_code, :address)
   end
 
   def create_address
@@ -67,18 +82,18 @@ class Users::OrdersController < ApplicationController
   end
 
   def order_params
-    case params[:address_num].to_i
+    case params[:order][:address_num].to_i
     when 0 #ログインユーザー登録住所
       name = current_user.full_name
       postal_code = current_user.postal_code
       address = current_user.address
     when 1 #フォームで入力住所
       # create_addressを使用したいが、confirmで表示させる際にはまだsaveしない為ダメだった
-      name = params[:name]
-      address = params[:address]
-      postal_code = params[:postal_code]
+      name = params[:order][:name]
+      address = params[:order][:address]
+      postal_code = params[:order][:postal_code]
     when 2 #セレクトタグで選択住所
-      address_record = Address.find(params[:address_id])
+      address_record = Address.find(params[:order][:address_id])
       name = address_record.name
       postal_code = address_record.postal_code
       address = address_record.address
@@ -88,8 +103,8 @@ class Users::OrdersController < ApplicationController
       name: name,
       postal_code: postal_code,
       address: address,
-      payment: params[:payment],
-      total_price: current_user.cart_total_price + @delivery_cost,
+      payment: params[:order][:payment],
+      total_price: current_user.cart_total_price + @delivery_cost + @handing_cost,
       delivery_cost: @delivery_cost
     }
   end
