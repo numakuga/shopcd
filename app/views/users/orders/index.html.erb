@@ -20,15 +20,18 @@
             <p class="card-text"><%= order_detail.item.artist.name %></p>
           </div>
           <!-- cart_item.rbのメソッドとまとめたい！ -->
-          <p class="card-text align-self-center"><%= (order_detail.cd_price * 1.10).round.to_s(:delimited) %>円(税込)</p>
+          <p class="card-text align-self-center"><%= order_detail.tax_included %>円(税込)</p>
           <!-- tax_includedメソッドはcart_item.rbに定義 -->
-          <p class="card-text align-self-center">購入数：<%= order_detail.cd_amount %>点</p>
+          <p class="card-text align-self-center">購入数：<%= order_detail.piece %>点</p>
         </div>
       </div>
     <% end %>
     <div class="d-flex mt-3">
       <h5 class="mr-auto">支払い方法：<%= order.payment_i18n %></h5>
-      <p class="mr-3">送料：<%= order.delivery_cost %>円</p>
+      <% if Order.payments[order.payment] == 2 %>
+        <p class="card-text mr-2">代引き手数料：<%= @handing_cost %>円 /</p>
+      <% end %>
+      <p class="mr-2">送料：<%= order.delivery_cost %>円 /</p>
       <h5>合計金額：<%= order.total_price.to_s(:delimited) %>円（税込）</h5>
     </div>
   </div>

@@ -1,6 +1,7 @@
 class Users::OrdersController < ApplicationController
   def index
     @orders = current_user.orders.order(updated_at: :desc)
+    @handing_cost = 500
   end
 
   def new
