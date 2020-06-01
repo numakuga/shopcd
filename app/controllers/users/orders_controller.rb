@@ -52,8 +52,8 @@ class Users::OrdersController < ApplicationController
         current_user.cart_items.each do |cart_item|
           @order.order_details.create!(
             item_id: cart_item.item_id,
-            cd_price: cart_item.item.price,
-            cd_amount: cart_item.piece
+            price: cart_item.item.price,
+            piece: cart_item.piece
           )
           cart_item.item.reduce_stock(cart_item.piece)
           cart_item.destroy
