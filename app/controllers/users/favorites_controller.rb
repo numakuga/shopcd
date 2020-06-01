@@ -2,6 +2,7 @@ class Users::FavoritesController < ApplicationController
   before_action :set_item, except: [:index]
 
   def index
+    @favorites = current_user.favorites.order(updated_at: :desc)
   end
 
   def create

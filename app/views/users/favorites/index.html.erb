@@ -1,2 +1,3 @@
-<h1>Favorites#index</h1>
-<p>Find me in app/views/favorites/index.html.erb</p>
+<h2 class="font-weight-bold border-bottom pb-2 mt-5 mb-5"><%= @page_title = "お気に入り商品" %></h2>
+
+<%= render "users/shared/cart_items_index", cart_items: @favorites %>  
