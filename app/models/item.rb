@@ -17,7 +17,15 @@ class Item < ApplicationRecord
   def stock_array
     self.stock == 0 ? ["売り切れ"]:[*1..self.stock]
   end
-
+  # 購入したアイテムの在庫を減らす
+  def reduce_stock(piece)
+    self.stock = stock - piece
+    save!
+  end
+  # 税込価格表示
+  def tax_included
+    (self.price * 1.10).round.to_s(:delimited)
+  end
   # ファボしているか判定
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?

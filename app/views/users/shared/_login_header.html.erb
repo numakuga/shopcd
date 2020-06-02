@@ -7,13 +7,13 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item nav-link text-black-50">
-        ようこそ  <%= current_user.first_name + current_user.last_name %>さん
+        ようこそ  <%= current_user.full_name %>さん
       </li>
       <li class="nav-item nav-link">
         <%= link_to "マイページ", user_path(current_user), class: "font-weight-bold text-info" %>
       </li>
       <li class="nav-item nav-link">
-        <%= link_to "お気に入り", "#", class: "font-weight-bold text-info" %>
+        <%= link_to "お気に入り", user_favorites_path(current_user), class: "font-weight-bold text-info" %>
       </li>
       <li class="nav-item nav-link">
         <%= link_to "カート", user_cart_items_path(current_user), class: "font-weight-bold text-info" %>
@@ -24,6 +24,7 @@
     </ul>
   </div>
 </nav>
+
 <% if flash[:notice] %>
   <div class="list-group-item list-group-item-warning mb-4">
     <%= flash[:notice] %>
