@@ -1,18 +1,14 @@
 class Users::SearchesController < ApplicationController
 
   def items
-    @q = Item.ransack(params[:q])
-    @items = Item.ransack(ransack_item_params).result
+    @q = Item.ransack(ransack_item_params)
+    @items = @q.result
     render "users/items/index"
-  end
-
-  def artists
-
   end
 
   private
 
   def ransack_item_params
-    params.require(:q).permit(:title_cont)
+    params.require(:q).permit(:title_or_artist_name_cont)
   end
 end

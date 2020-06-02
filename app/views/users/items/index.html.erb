@@ -1,7 +1,8 @@
 <% @page_title = "商品一覧" %>
 
 <%= search_form_for @q, url: searches_items_path, class:"d-flex mt-5 mb-5" do |f| %>
-  <%= f.search_field :title_cont, placeholder: "商品名、アーティスト名", class: "form-control" %>
+  <!-- _cont:部分一致（内容を含む） -->
+  <%= f.search_field :title_or_artist_name_cont, placeholder: "商品名、アーティスト名", class: "form-control" %>
   <%= submit_tag "検索", class: "btn btn-success" %>
 <% end %>
 
