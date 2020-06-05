@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_01_152947) do
+ActiveRecord::Schema.define(version: 2020_06_05_073756) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer "user_id"
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_152947) do
     t.boolean "status", default: true, null: false
     t.string "jacket_image_id"
     t.integer "stock", null: false
-    t.datetime "release"
+    t.date "release"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["artist_id"], name: "index_items_on_artist_id"
