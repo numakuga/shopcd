@@ -45,12 +45,12 @@
 <% end %>
 
 
-<div class="card-deck">
+<div class="card-columns">
   <% @items.each do |item| %>
     <%= link_to item_path(item), style:"text-decoration: none" do %>
     <!-- styleはリンクの下線を消すため -->
-      <div class="card item-card mt-5">
-        <%= attachment_image_tag item, :jacket_image, :fill, 253, 200, fallback: "logo.png", size: "253x200" %>
+      <div class="card item-card mt-5" style="width: 20rem;">
+        <%= image_tag item.jacket_image_id %>
         <div class="card-body">
           <h4 class="card-title border-bottom"><%= item.title %></h4>
           <p class="card-text">

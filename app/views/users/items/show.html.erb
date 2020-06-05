@@ -1,9 +1,10 @@
-<h2 class="font-weight-bold border-bottom pb-2 mb-5"><%= @page_title = "商品詳細" %></h2>
+<h2 class="font-weight-bold border-bottom pb-2 mt-5 mb-5"><%= @page_title = "商品詳細" %></h2>
 
 <div class="row">
   <div class="col-md-4"> <!-- list-group -->
     <div class="card sticky-top">
-      <%= attachment_image_tag @item, :jacket_image, :fill, 350, 350, fallback: "logo.png", size: "350x350" %>
+      <%= image_tag @item.jacket_image_id, size: "350x350"%>
+
     </div>
   </div>
 
