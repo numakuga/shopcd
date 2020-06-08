@@ -1,24 +1,65 @@
-# README
+# ANAGO-SHOP
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+CDショップのECサイト:cd::package:
+<img src="https://user-images.githubusercontent.com/58260334/84004801-1d094200-a9a7-11ea-84c9-71a3a2b05c9e.PNG" width="300px">
 
-Things you may want to cover:
+* ruby 2.5.7
 
-* Ruby version
+### ユーザー機能
 
-* System dependencies
+* #### 新規ユーザー登録（下記の情報が必要）
 
-* Configuration
+  * 名前
+  * フリガナ
+  * 郵便番号
+  * 住所
+  * 電話番号
+  * メールアドレス
+  * パスワード
 
-* Database creation
+* #### ログイン（下記の情報で可能）
 
-* Database initialization
+   * メールアドレス
+   * パスワード
 
-* How to run the test suite
+* #### 会員情報編集
 
-* Services (job queues, cache servers, search engines, etc.)
+  マイページから、登録した名前、住所、メールアドレス等の変更が可能です。
 
-* Deployment instructions
 
-* ...
+* #### 退会
+
+  マイページから退会できます。
+  一度退会しますと、ユーザー情報が全て削除されます。
+
+
+* #### 配送先追加
+
+  マイページから、新規登録時に登録した住所以外にも住所が登録可能です。
+
+
+* #### カートにいれる
+
+  商品詳細ページから購入個数を選択後にカートにいれることができます。
+
+
+* #### 商品購入
+
+  カート内商品、支払い方法、配送先をご確認後、購入完了となります。
+
+
+* #### 購入履歴
+
+  購入履歴を保存しているので、マイページからこれまで購入した商品を確認できます。
+
+
+* #### いいね
+
+  お気に入りの商品にマークをつけることが可能です。
+  いいねを押した商品の一覧ページも閲覧可能です。
+
+
+* #### 商品検索
+
+  商品名、アーティスト名から商品検索が可能です。<br>
+  DBにない商品は楽天APIを使用して、商品の情報を取得しています。
