@@ -4,8 +4,7 @@ class Users::SearchesController < ApplicationController
     @items = @q.result
     # DBにない場合にAPIを叩く&APIの情報を保存する
     if @items == []
-      rakuten_items = RakutenWebService::Books::CD.search(title: ransack_item_params.values)
-      rakuten_items.each do |rakuten_item|
+      RakutenWebService::Books::CD.search(artist_name: ransack_item_params.values).each do |rakuten_item|
         # DBに同じアーティスト・レーベルがいた場合
         artist = Artist.find_by(name: rakuten_item.artist_name)
         label = Label.find_by(name: rakuten_item.label)
@@ -19,9 +18,8 @@ class Users::SearchesController < ApplicationController
         end
         #genreIDはまた別のAPIを叩きに行き、genreモデルに保存
         # ここでたまにid長いって怒られる
-        genre_params = RakutenWebService::Books::Genre.search(books_genre_id: rakuten_item.books_genre_id)
-        genre_params.each do |g|
-          genre = Genre.create(name: g.parents[0]["books_genre_name"])
+        RakutenWebService::Books::Genre.search(books_genre_id: rakuten_item.books_genre_id).each do |rakuten_genre|
+          genre = Genre.create(name: rakuten_genre.parents[0]["books_genre_name"])
           # itemのDBに保存したい
           item = Item.new(
             artist_id: artist.id,
@@ -36,17 +34,20 @@ class Users::SearchesController < ApplicationController
           # itemが保存できたら、紐ついているdisc、songもcreate
           if item.save
             disc = Disc.create(item_id: item.id)
-            # itemないの曲をeach?
+            # item内の曲をeach ###で区切られている為split
             rakuten_item.play_list.split("###").each do |song|
               Song.create(disc_id: disc.id, title: song)
             end
+            # もしitemがうまくsaveできなかったら何かしら対策
           end
         end
       end
+      # APIを使用した後のリダイレクト先
       @q = Item.ransack(ransack_item_params)
       @items = @q.result
       render "users/items/index"
     else
+      # DBに商品があった場合のリダイレクト先
       render "users/items/index"
     end
   end
