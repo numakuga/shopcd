@@ -1,14 +1,14 @@
-<h2 class="font-weight-bold border-bottom pb-2 mb-5">
+<h2 class="font-weight-bold border-bottom pb-2 mt-5 mb-5">
   <%= @page_title = "カート" %>
 </h2>
 
 <% if @cart_items.present? %>
   <p>現在カートには、こちらの商品が入っております。</p>
-  <h5 class="card-header sticky-top border p-4 font-weight-bold d-flex justify-content-around">
+  <h5 class="card-header sticky-top border-buttom-0 bg-white p-4 font-weight-bold d-flex justify-content-around">
     <sapn class="col-md-6 text-center">商品</sapn>
-    <span class="col-md-1">数量</span>
-    <span class="col-md-2">金額</span>
-    <span class="col-md-2 mr-5">在庫数</span>
+    <span class="col-md-2">数量</span>
+    <span class="col-md-1 mr-3">金額</span>
+    <span class="col-md-2 mr-3">在庫数</span>
   </h5>
   <%= render "users/shared/cart_items_index", cart_items: @cart_items %>
 <% else %>
