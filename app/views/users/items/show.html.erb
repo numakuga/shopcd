@@ -23,7 +23,7 @@
         <p class="card-text"><%= @item.label.name %></p>
         <p class="card-text">ジャンル：<%= @item.genre.name %></p>
         <p class="card-text">発売日：<%= @item.release %></p>
-        <h4 class="card-text"><%= @item.price.to_s(:delimited) %>円</h4>
+        <h4 class="card-text"><%= @item.tax_included %>円(税込み)</h4>
         <%= form_with model:[current_user, @cart_item], local: true, class:"d-flex" do |f| %>
           <%= f.select :piece, @item.stock_array, { prompt: '購入点数を選択してください' }, class:"btn border mt-2 p-3" %>
           <%= f.hidden_field :item_id, :value => @item.id %>
@@ -37,7 +37,7 @@
       </div>
     </div>
     <% @discs.each.with_index(1) do |disc, i| %>
-      <div class="card">
+      <div class="card mt-5">
         <div class="card-body">
           <h4 class="card-title mb-5">Disc<%= i %></h4>
           <% @songs.each.with_index(1) do |song, i| %>
