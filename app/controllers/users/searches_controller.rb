@@ -4,6 +4,7 @@ class Users::SearchesController < ApplicationController
     @items = @q.result
     # DBにない場合にAPIを叩く&APIの情報を保存する
     if @items == []
+      # アーティスト名で検索（商品名で探すことができる様にもしたい）
       RakutenWebService::Books::CD.search(artist_name: ransack_item_params.values).each do |rakuten_item|
         # DBに同じアーティスト・レーベルがいた場合
         artist = Artist.find_by(name: rakuten_item.artist_name)
@@ -26,7 +27,7 @@ class Users::SearchesController < ApplicationController
             label_id: label.id,
             genre_id: genre.id,
             title: rakuten_item.title,
-            price: rakuten_item.item_price, #税込み販売価格
+            price: (rakuten_item.item_price / 1.08).round, #税抜き
             jacket_image_id: rakuten_item.large_image_url,
             release: Date.strptime(rakuten_item.sales_date,'%Y年%m月%d日'), # 文字列からdate型に変換
             stock: 30
