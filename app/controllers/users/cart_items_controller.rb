@@ -1,4 +1,6 @@
 class Users::CartItemsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :barrier_user
 
   def index
     @cart_items = current_user.cart_items.order(updated_at: :desc)
@@ -51,4 +53,12 @@ class Users::CartItemsController < ApplicationController
   def cart_item_params
     params.require(:cart_item).permit(:piece, :item_id).merge(user_id: current_user.id)
   end
+
+  #url直接入力禁止
+  def barrier_user
+    unless User.find(params[:user_id]).id == current_user.id
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
 end

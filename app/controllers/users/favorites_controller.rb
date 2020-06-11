@@ -1,5 +1,6 @@
 class Users::FavoritesController < ApplicationController
   before_action :set_item, except: [:index]
+  before_action :barrier_user
 
   def index
     @favorites = current_user.favorites.order(updated_at: :desc)
@@ -20,5 +21,12 @@ class Users::FavoritesController < ApplicationController
 
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  #url直接入力禁止
+  def barrier_user
+    unless User.find(params[:user_id]).id == current_user.id
+      redirect_back(fallback_location: root_path)
+    end
   end
 end

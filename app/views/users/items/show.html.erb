@@ -24,15 +24,22 @@
         <p class="card-text">ジャンル：<%= @item.genre.name %></p>
         <p class="card-text">発売日：<%= @item.release %></p>
         <h4 class="card-text"><%= @item.tax_included %>円(税込み)</h4>
-        <%= form_with model:[current_user, @cart_item], local: true, class:"d-flex" do |f| %>
-          <%= f.select :piece, @item.stock_array, { prompt: '購入点数を選択してください' }, class:"btn border mt-2 p-3" %>
-          <%= f.hidden_field :item_id, :value => @item.id %>
-          <% if @item.stock_array != ["売り切れ"] %>
-            <%= f.submit "カートに入れる ＞", class:"ml-auto btn btn-info btn-lg" %>
-          <% else %>
-            <!-- item売り切れの際はボタンを非活性に変更 -->
-            <%= f.submit "カートに入れる ＞", class:"ml-auto btn btn-info btn-lg", "disabled" => true %>
+        <% if user_signed_in? %> <!-- ログイン済みユーザー -->
+          <%= form_with model:[current_user, @cart_item], local: true, class:"d-flex" do |f| %>
+            <%= f.select :piece, @item.stock_array, { prompt: '購入点数を選択してください' }, class:"btn border mt-2 p-3" %>
+            <%= f.hidden_field :item_id, :value => @item.id %>
+            <% unless @item.stock_array == ["売り切れ"] %>
+              <%= f.submit "カートに入れる ＞", class:"ml-auto btn btn-info btn-lg" %>
+            <% else %>
+              <!-- item売り切れの際はボタンを非活性に変更 -->
+              <%= f.submit "カートに入れる ＞", class:"ml-auto btn btn-info btn-lg", "disabled" => true %>
+            <% end %>
           <% end %>
+        <% else %> <!-- 未ログインユーザー -->
+          <div class="form d-flex">
+            <%= select_tag :piece, options_for_select(@item.stock_array), class:"btn border mt-2 p-3" %>
+            <%= link_to "カートに入れる ＞", new_user_session_path, class:"ml-auto btn btn-info btn-lg pt-3" %>
+          </div>
         <% end %>
       </div>
     </div>

@@ -1,4 +1,7 @@
 class Users::OrdersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :barrier_user
+
   def index
     @orders = current_user.orders.order(updated_at: :desc)
     @handing_cost = 500
@@ -108,5 +111,12 @@ class Users::OrdersController < ApplicationController
       total_price: current_user.cart_total_price + @delivery_cost + @handing_cost,
       delivery_cost: @delivery_cost
     }
+  end
+
+  #url直接入力禁止
+  def barrier_user
+    unless User.find(params[:user_id]).id == current_user.id
+      redirect_back(fallback_location: root_path)
+    end
   end
 end
