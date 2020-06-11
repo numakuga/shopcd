@@ -1,6 +1,7 @@
 class Users::UsersController < ApplicationController
-
+  before_action :authenticate_user!
   before_action :user_find
+  before_action :barrier_user
 
   def show
   end
@@ -40,6 +41,14 @@ class Users::UsersController < ApplicationController
   end
 
   def user_params
-      params.require(:user).permit(:first_name, :last_name, :last_name, :last_kana, :postal_code, :address, :phone, :email)
+    params.require(:user).permit(:first_name, :last_name, :last_name, :last_kana, :postal_code, :address, :phone, :email)
   end
+
+  #url直接入力禁止
+  def barrier_user
+    unless @user.id == current_user.id
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
 end
