@@ -63,3 +63,9 @@ CDショップのECサイト:cd::package:
 
   商品名、アーティスト名から商品検索が可能です。<br>
   DBにない商品は楽天APIを使用して、商品の情報を取得しています。
+
+
+### メンバー
+
+* [AIRI KUGA](https://github.com/KUGA16) :fish:
+* [SAKI NUMATA](https://github.com/saki918) :panda_face:
