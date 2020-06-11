@@ -24,7 +24,7 @@ class Item < ApplicationRecord
   end
   # 税込価格表示
   def tax_included
-    (self.price * 1.10).round.to_s(:delimited)
+    (self.price * 1.08).round.to_s(:delimited)
   end
   # ファボしているか判定
   def favorited_by?(user)

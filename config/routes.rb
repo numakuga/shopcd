@@ -31,7 +31,6 @@ Rails.application.routes.draw do
 
     # searches
     get 'searches/items' => 'searches#items'
-    get 'searches/artists' => 'searches#artists'
   end
 
   namespace :admin do

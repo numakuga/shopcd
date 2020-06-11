@@ -74,3 +74,7 @@ gem 'ransack'
 gem "paranoia", "~> 2.2"
 # enum値を日本語に変換
 gem 'enum_help'
+# CDの情報を取得するAPI
+gem 'rakuten_web_service'
+# 環境変数
+gem 'dotenv-rails'

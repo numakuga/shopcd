@@ -19,20 +19,15 @@ class Users::CartItemsController < ApplicationController
     end
     # カートに同じアイテムがない場合
     if !have_item
-      unless CartItem.create(cart_item_params)
-        flash[:notice] = "カート内に保存できませんでした。"
-        @item = Item.find(params[:cart_item][:item_id])
-        render "users/items/show"
-      end
+      CartItem.create(cart_item_params)
     end
     redirect_to user_cart_items_path(current_user)
   end
 
   def update
-    # まだ未完成
     cart_item = CartItem.find(params[:id])
     if cart_item.update(cart_item_params)
-      flash[:notice] = "#{cart_item.item.title}の購入個数を変更しました。"
+      flash[:notice] = "#{cart_item.item.title}の個数を変更しました。"
       redirect_back(fallback_location: root_path)
     else
       @cart_items = current_user.cart_items.order(updated_at: :desc)

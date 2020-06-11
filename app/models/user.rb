@@ -38,7 +38,7 @@ class User < ApplicationRecord
     total_price = 0
     cart_items.each do |cart_item|
       # round = 小数点以下切り捨て
-      total_price += (cart_item.piece * cart_item.item.price * 1.10).round
+      total_price += (cart_item.piece * cart_item.item.price * 1.08).round
     end
     return total_price
   end

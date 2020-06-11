@@ -1,20 +1,56 @@
 <% @page_title = "商品一覧" %>
 
-<%= search_form_for @q, url: searches_items_path, class:"d-flex" do |f| %>
-  <%= f.search_field :title_cont, placeholder: "商品名、アーティスト名", class: "form-control" %>
+<%= search_form_for @q, url: searches_items_path, class:"d-flex mt-5 mb-5" do |f| %>
+  <!-- _cont:部分一致（内容を含む） -->
+  <%= f.search_field :title_or_artist_name_cont, placeholder: "商品名、アーティスト名", class: "form-control" %>
   <%= submit_tag "検索", class: "btn btn-success" %>
 <% end %>
 
-<% if request.path != '/' %>
+<% unless request.path == '/' %>
   <div>検索結果：<%= @items.count %>件</div>
 <% end %>
 
-<div class="card-deck">
-  <% @items.each do |item| %>
+<% if request.path == '/' %>
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <%= image_tag "nogizaka3", class: "d-block w-100", alt: "First slide" %>
+        <div class="carousel-caption d-none d-md-block">
+          <h2>乃木坂46</h2>
+          <h4>ニューシングル発売決定!!!!</h4>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag "nogizaka3", class: "d-block w-100", alt: "Second slide" %>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag "nogizaka3", class: "d-block w-100", alt: "Third slide" %>
+      </div>
+    </div>
+
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+<% end %>
+
+
+<div class="card-columns mt-5">
+  <% @items.shuffle.first(21).each do |item| %>
     <%= link_to item_path(item), style:"text-decoration: none" do %>
     <!-- styleはリンクの下線を消すため -->
       <div class="card item-card mt-5">
-        <%= attachment_image_tag item, :jacket_image, :fill, 253, 200, fallback: "logo.png", size: "253x200" %>
+        <%= image_tag item.jacket_image_id, size: "355x350" %>
         <div class="card-body">
           <h4 class="card-title border-bottom"><%= item.title %></h4>
           <p class="card-text">
@@ -22,7 +58,7 @@
             <%= item.artist.name %>
           </p>
           <p class="card-text">
-            <%= item.price.to_s(:delimited) %>円
+            <%= item.tax_included %>円
           </p>
           <p class="card-text">
             <small class="text-muted">
@@ -38,3 +74,6 @@
     <% end %>
   <% end %>
 </div>
+
+<!-- ページトップに戻るボタン -->
+<%= link_to "ページトップへ戻る", "#", class:"col-md-12 center mt-5 btn btn-outline-secondary", id:"page_top" %>

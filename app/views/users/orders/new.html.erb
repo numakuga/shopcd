@@ -54,7 +54,7 @@
     <%= f.select :address_id, options_for_select(@addresses.map {|address| [address.postal_code + " " + address.address + " " +  address.name, address.id]}), {include_blank: "選択してください"}, {class: "custom-select"} %>
   </div>
 
-  <h2 class="font-weight-bold border-bottom pb-2 mb-3">合計金額</h2>
+  <h2 class="font-weight-bold border-bottom pb-2 mb-3">購入商品</h2>
   <%= render "users/shared/cart_items_index", cart_items: @cart_items %>
 
   <div class="actions mt-5">
